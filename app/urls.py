@@ -68,6 +68,8 @@ urlpatterns = [
     # URSL for Finance
     path('finance_home/', FinanceViews.finance_home, name="finance_home"),
     path('admin_profile/', FinanceViews.finance_profile, name="finance_profile"),
+    path('payslip/<int:pk>/', FinanceViews.payslip, name='dashboard_payslip'),
+    path('invoices/create',FinanceViews.createInvoice, name='create-invoice'),
 
 
 ]

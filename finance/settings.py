@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
+    'crispy_forms',
+    'easy_pdf',
 ]
 
 MIDDLEWARE = [
@@ -113,7 +115,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
+DATE_FORMAT = "d-m-Y"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -125,6 +127,7 @@ STATICFILES_DIRS = (
 
 AUTH_USER_MODEL = "app.CustomUser"
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Registering Custom Backend "EmailBackEnd"
 AUTHENTICATION_BACKENDS = ['app.EmailBackEnd.EmailBackEnd']

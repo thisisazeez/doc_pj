@@ -3,8 +3,13 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import django
-import datetime
-
+from django.forms import ModelForm
+import datetime, calendar
+from django import forms
+from django.template.defaultfilters import slugify
+from django.utils import timezone
+from uuid import uuid4
+from django.urls import reverse
 
 class CustomUser(AbstractUser):
     user_type_data = ((1, "management"), (2, "staff"), (3, "finance"))
@@ -82,6 +87,115 @@ class Students(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = models.Manager()
+
+
+
+
+class Invoice(models.Model):
+    TERMS = [
+    ('14 days', '14 days'),
+    ('30 days', '30 days'),
+    ('60 days', '60 days'),
+    ]
+
+    STATUS = [
+    ('CURRENT', 'CURRENT'),
+    ('OVERDUE', 'OVERDUE'),
+    ('PAID', 'PAID'),
+    ]
+
+    title = models.CharField(null=True, blank=True, max_length=100)
+    number = models.CharField(null=True, blank=True, max_length=100)
+    dueDate = models.DateField(null=True, blank=True)
+    paymentTerms = models.CharField(choices=TERMS, default='14 days', max_length=100)
+    status = models.CharField(choices=STATUS, default='CURRENT', max_length=100)
+    notes = models.TextField(null=True, blank=True)
+
+    #RELATED fields
+    client = models.ForeignKey(Students, blank=True, null=True, on_delete=models.SET_NULL)
+
+    #Utility fields
+    uniqueId = models.CharField(null=True, blank=True, max_length=100)
+    slug = models.SlugField(max_length=500, unique=True, blank=True, null=True)
+    date_created = models.DateTimeField(blank=True, null=True)
+    last_updated = models.DateTimeField(blank=True, null=True)
+
+
+    def __str__(self):
+        return '{} {}'.format(self.title, self.uniqueId)
+
+
+    def get_absolute_url(self):
+        return reverse('invoice-detail', kwargs={'slug': self.slug})
+
+
+    def save(self, *args, **kwargs):
+        if self.date_created is None:
+            self.date_created = timezone.localtime(timezone.now())
+        if self.uniqueId is None:
+            self.uniqueId = str(uuid4()).split('-')[4]
+            self.slug = slugify()
+
+        self.slug = slugify('{} {}'.format(self.title, self.uniqueId))
+        self.last_updated = timezone.localtime(timezone.now())
+
+        super(Invoice, self).save(*args, **kwargs)
+
+
+class Settings(models.Model):
+
+    # PROVINCES = [
+    # ('Gauteng', 'Gauteng'),
+    # ('Free State', 'Free State'),
+    # ('Limpopo', 'Limpopo'),
+    # ]
+
+    #Basic Fields
+    clientName = models.CharField(null=True, blank=True, max_length=200)
+    clientLogo = models.ImageField(default='default_logo.jpg', upload_to='company_logos')
+    addressLine1 = models.CharField(null=True, blank=True, max_length=200)
+    phoneNumber = models.CharField(null=True, blank=True, max_length=100)
+    emailAddress = models.CharField(null=True, blank=True, max_length=100)
+
+    #Utility fields
+    uniqueId = models.CharField(null=True, blank=True, max_length=100)
+    slug = models.SlugField(max_length=500, unique=True, blank=True, null=True)
+    date_created = models.DateTimeField(blank=True, null=True)
+    last_updated = models.DateTimeField(blank=True, null=True)
+
+
+    def __str__(self):
+        return '{} {} {}'.format(self.clientName, self.province, self.uniqueId)
+
+
+    def get_absolute_url(self):
+        return reverse('settings-detail', kwargs={'slug': self.slug})
+
+
+    def save(self, *args, **kwargs):
+        if self.date_created is None:
+            self.date_created = timezone.localtime(timezone.now())
+        if self.uniqueId is None:
+            self.uniqueId = str(uuid4()).split('-')[4]
+            self.slug = slugify('{} {} {}'.format(self.clientName, self.province, self.uniqueId))
+
+        self.slug = slugify('{} {} {}'.format(self.clientName, self.province, self.uniqueId))
+        self.last_updated = timezone.localtime(timezone.now())
+
+        super(Settings, self).save(*args, **kwargs)
+
+
+YEAR_CHOICES = []
+for year in range(2021, datetime.datetime.now().year + 1):
+    YEAR_CHOICES.append((year, year))
+
+MONTHS_CHOICES = tuple(zip(range(1,13), (calendar.month_name[i] for i in range(1,13))))
+
+
+class MeltReportForm(forms.Form):
+	month = forms.ChoiceField(choices=MONTHS_CHOICES)
+	year = forms.ChoiceField(choices=YEAR_CHOICES)
+
 
 @receiver(post_save, sender=CustomUser)
 # Now Creating a Function which will automatically insert data in HOD, Staff or Finance

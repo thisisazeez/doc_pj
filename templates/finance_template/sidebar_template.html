@@ -33,7 +33,19 @@
                         </p>
                     </a>
                 </li>
+
+                <hr>
+                <li class="nav-item">
+                    {% url 'dashboard_payslip' as dashboard_payslip %}
+                    <a href="{{ dashboard_payslip }}" class="nav-link {% if request.path == dashboard_payslip %} active {% endif %}">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Pay {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
+                        </p>
+                    </a>
+                </li>
             </ul>
+
         </nav>
         <!-- /.sidebar-menu -->
     </div>
