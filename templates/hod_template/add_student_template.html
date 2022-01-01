@@ -48,18 +48,18 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Password</label>
-                                <input type="text" class="form-control" name="password" value="lincolnstudent12345" disabled>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Parent Password</label>
-                                <input type="text" class="form-control" name="parent_password" value="password" disabled>
-                            </div>
-
-                            <div class="form-group">
                                 <label>Student ID</label>
                                 <input type="id" class="form-control" name="id" placeholder="LUC/student/0090">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Nin ID</label>
+                                <input type="id" class="form-control" name="id" placeholder="2829292282873645454">
+                            </div>
+
+                            <div class="form-group">
+                                <label>International Passport ID</label>
+                                <input type="id" class="form-control" name="id" placeholder="87650090">
                             </div>
 
                             <div class="form-group">
@@ -79,7 +79,32 @@
                             </div>
 
 
+                            <div class="form-group">
+                                <label>Intake:</label>
+                                <select class="form-control" name="intake">
+                                    {% for intake in intakes %}
+                                        <option>{{ intake.intake_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
 
+                            <div class="form-group">
+                                <label>Department:</label>
+                                <select class="form-control" name="department">
+                                    {% for department in departments %}
+                                        <option value="{{department.id}}">{{ department.department_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Status:</label>
+                                <select class="form-control" name="status">
+                                    {% for status in status %}
+                                        <option value="{{status.id}}">{{ status.status_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
 
                         </div>
                         <!-- /.card-body -->

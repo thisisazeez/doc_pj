@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Student Management System | Student Dashboard</title>
+  <title>Finance Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -51,7 +51,7 @@
         </li>
       </ul>
 
-      <h4 style="margin-left: 10px; margin-top: 5px;">Student Management System | Student Dashboard</h4>
+      <h4 style="margin-left: 10px; margin-top: 5px;">Finance Dashboard</h4>
 
       <ul class="navbar-nav ml-auto">
       
@@ -62,7 +62,7 @@
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
           
-          <a href="{% url 'student_profile' %}" class="dropdown-item">
+          <a href="{% url 'finance_profile' %}" class="dropdown-item">
             <i class="fas fa-user-edit mr-2"></i> Update Profile
           </a>
 
@@ -79,7 +79,7 @@
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    {% include 'student_template/sidebar_template.html' with user=user id=id %}
+    {% include 'finance_template/sidebar_template.html' with user=user id=id %}
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -96,7 +96,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{% url 'student_home' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'finance_home' %}">Home</a></li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->

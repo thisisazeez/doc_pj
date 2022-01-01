@@ -42,11 +42,23 @@
               <a href="{{ manage_staff }}" class="nav-link {% if request.path == manage_staff %} active {% endif %} {% if request.path == edit_staff %} active {% endif %}">
                 <i class="nav-icon fas fa-chalkboard-teacher"></i>
                 <p>
-                  Manage Lecturers
+                  Manage Staffs
                 </p>
               </a>
             </li>
             
+
+
+            <li class="nav-item">
+              {% url 'manage_finance' as manage_finance %}
+              {% url 'edit_finance' finance_id=id as edit_finance %}
+              <a href="{{ manage_finance }}" class="nav-link {% if request.path == manage_finance %} active {% endif %} {% if request.path == edit_finance %} active {% endif %}">
+                <i class="nav-icon fas fa-chalkboard-teacher"></i>
+                <p>
+                  Manage Finance
+                </p>
+              </a>
+            </li>
             <!-- <li class="nav-item">
               {% url 'add_parent' as add_parent %}
               <a href="{{ add_parent }}" class="nav-link {% if request.path == add_parent %} active {% endif %}">
@@ -57,7 +69,7 @@
               </a>
             </li> -->  
 
-            <li class="nav-item">
+            {% comment %} <li class="nav-item">
               {% url 'view_at' as view_at %}
               <a href="{{ view_at }}" class="nav-link {% if request.path == view_at %} active {% endif %}">
                 <i class="nav-icon fas fa-th"></i>
@@ -65,7 +77,7 @@
                   Try View
                 </p>
               </a>
-            </li>
+            </li>{% endcomment %}
 
             <li class="nav-item">
               {% url 'manage_intake' as manage_intake %}
@@ -76,7 +88,7 @@
                   Manage Intake
                 </p>
               </a>
-            </li>
+            </li> 
 
 
             <!-- <li class="nav-item">
@@ -98,7 +110,7 @@
                   Manage Student
                 </p>
               </a>
-            </li>
+            </li> 
 <!-- 
             <li class="nav-item">
               {% url 'add_student' as add_student %}
@@ -119,9 +131,18 @@
                   Manage Department
                 </p>
               </a>
-            </li>
+            </li> 
 
-
+            <li class="nav-item">
+              {% url 'manage_status' as manage_status %}
+              {% url 'edit_status' status_id=id as edit_status %}
+              <a href="{{ manage_status }}" class="nav-link {% if request.path == manage_status %} active {% endif %} {% if request.path == edit_status %} active {% endif %}">
+                <i class="nav-icon fas fa-chalkboard"></i>
+                <p>
+                  Manage Status
+                </p>
+              </a>
+            </li> 
             <!-- <li class="nav-item">
               {% url 'add_department' as add_department %}
                 <a href="{{ add_department }}" class="nav-link {% if request.path == add_department %} active {% endif %}">
@@ -131,7 +152,7 @@
                   </p>
                 </a>
               </li> -->
-
+{% comment %} 
               <li class="nav-item">
                 {% url 'manage_semester' as manage_semester %}
                 {% url 'edit_semester' semester_id=id as edit_semester %}
@@ -142,7 +163,7 @@
                   </p>
                 </a>
               </li>
-  
+   {% endcomment %}
   
               <!-- <li class="nav-item">
                 {% url 'add_semester' as add_semester %}
@@ -154,7 +175,7 @@
                   </a>
                 </li> -->
 
-            <li class="nav-item">
+            {% comment %} <li class="nav-item">
               {% url 'manage_course' as manage_course %}
               {% url 'edit_course' course_id=id as edit_course %}
               <a href="{{ manage_course }}" class="nav-link {% if request.path == manage_course %} active {% endif %} {% if request.path == edit_course %} active {% endif %}">
@@ -163,7 +184,7 @@
                   Manage Course
                 </p>
               </a>
-            </li>
+            </li> {% endcomment %}
 
             <!-- <li class="nav-item">
             {% url 'add_course' as add_course %}
@@ -175,7 +196,7 @@
               </a>
             </li>
  -->
-            <li class="nav-item">
+            {% comment %} <li class="nav-item">
               {% url 'manage_subject' as manage_subject %}
               {% url 'edit_subject' subject_id=id as edit_subject %}
               <a href="{{ manage_subject }}" class="nav-link {% if request.path == manage_subject %} active {% endif %} {% if request.path == edit_subject %} active {% endif %}">
@@ -184,7 +205,7 @@
                   Manage Subject
                 </p>
               </a>
-            </li>
+            </li> {% endcomment %}
 
             <!-- <li class="nav-item">
               {% url 'add_subject' as add_subject %}
@@ -197,7 +218,7 @@
             </li> -->
 
 
-            <li class="nav-item">
+            {% comment %} <li class="nav-item">
               {% url 'manage_session' as manage_session %}
               {% url 'edit_session' session_id=id as edit_session %}
               <a href="{{ manage_session }}" class="nav-link {% if request.path == manage_session %} active {% endif %} {% if request.path == edit_session %} active {% endif %}">
@@ -206,7 +227,7 @@
                   Manage Session 
                 </p>
               </a>
-            </li>
+            </li> {% endcomment %}
 
             <!-- <li class="nav-item">
               {% url 'add_session' as add_session %}
@@ -219,7 +240,7 @@
             </li> -->
 
 
-            <li class="nav-item">
+            {% comment %} <li class="nav-item">
               {% url 'admin_view_attendance' as admin_view_attendance %}
               <a href="{{ admin_view_attendance }}" class="nav-link {% if request.path == admin_view_attendance %} active {% endif %}">
                 <i class="nav-icon fas fa-calendar-alt"></i>
@@ -228,7 +249,7 @@
                 </p>
               </a>
             </li>
-          </ul>
+          </ul> {% endcomment %}
         </nav>
         <!-- /.sidebar-menu -->
       </div>

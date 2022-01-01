@@ -9,6 +9,9 @@ import json
 from app.models import CustomUser,  Staffs, Departments, Intakes, Finance
 
 
+def staff_home(request):
+    return render(request, "staff_template/staff_home_template.html")#, context
+
 
 # #department
 def add_department(request):

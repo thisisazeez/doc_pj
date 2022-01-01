@@ -1,7 +1,7 @@
 {% extends 'hod_template/base_template.html' %}
 
 {% block page_title %}
-    Edit Student | Username: {{ student.admin.username }} | #ID : {{ student.admin.id }}
+    Edit Student | Username: {{ student.username }} | #ID : {{ student.id }}
 {% endblock page_title %}
 
 {% block main_content %}
@@ -53,28 +53,23 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Email address</label>
-                                <input type="email" class="form-control" name="email" value="{{ student.admin.email }}">
+                                <input type="email" class="form-control" name="email" value="{{ student.email }}">
                             </div>
 
                             <div class="form-group">
                                 <label>Username</label>
-                                <input type="text" class="form-control" name="username" value="{{ student.admin.username }}">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Password</label>
-                                <input type="password" class="form-control" name="password" placeholder="Change Password?">
+                                <input type="text" class="form-control" name="username" value="{{ student.username }}">
                             </div>
 
                             <div class="form-group">
                                 <label>First Name</label>
-                                <input type="text" class="form-control" name="first_name" value="{{ student.admin.first_name }}">
+                                <input type="text" class="form-control" name="first_name" value="{{ student.first_name }}">
                             </div>
 
                             <div class="form-group">
                                 <label>Last Name</label>
-                                <input type="text" class="form-control" name="last_name" value="{{ student.admin.last_name }}">
-                                <input type="hidden" name="student_id" value="{{ student.admin.id }}" />
+                                <input type="text" class="form-control" name="last_name" value="{{ student.last_name }}">
+                                <input type="hidden" name="student_id" value="{{ student.id }}" />
                             </div>
 
                             
@@ -87,14 +82,6 @@
                                 <input type="text" class="form-control" name="gender" placeholder="Gender">
                             </div>
                             
-                            <!-- <div class="form-group">
-                                <label>Session:</label>
-                                <select class="form-control" name="session">
-                                    {% for session in sessions %}
-                                        <option>{{ session.session_name }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div> -->
 
                             <div class="form-group">
                                 <label>Intake:</label>
@@ -115,10 +102,10 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Course:</label>
-                                <select class="form-control" name="course">
-                                    {% for course in courses %}
-                                        <option>{{ course.course_name }}</option>
+                                <label>Status:</label>
+                                <select class="form-control" name="status">
+                                    {% for status in status %}
+                                        <option value="{{status.id}}">{{ status.status_name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>

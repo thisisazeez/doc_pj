@@ -67,25 +67,23 @@
                                 <th>Username</th>
                                 <th>Email</th>
                                 <th>Department</th>
-                                <th>Last Login</th>
-                                <th>Course</th>
+                                <th>Status</th>
                                 <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for student in students %}
                                 <tr>
-                                <td>{{ student.admin.id }}</td>
-                                <td>{{ student.admin.first_name }}</td>
-                                <td>{{ student.admin.last_name }}</td>
-                                <td>{{ student.admin.username }}</td>
-                                <td>{{ student.admin.email }}</td>
+                                <td>{{ student.id }}</td>
+                                <td>{{ student.first_name }}</td>
+                                <td>{{ student.last_name }}</td>
+                                <td>{{ student.username }}</td>
+                                <td>{{ student.email }}</td>
                                 <td>{{ student.department.department_name }}</td>
-                                <td>{{ student.admin.last_login }}</td>
-                                <td>{{ student.course.course_name }}</td>
+                                <td>{{ student.status.status_name }}</td>
                                 <td>
-                                    <a href="{% url 'edit_student' student.admin.id %}" class="btn btn-success">Edit</a> 
-                                    <a href="{% url 'delete_student' student.admin.id %}" class="btn btn-danger">Delete</a>
+                                    <a href="{% url 'edit_student' student.id %}" class="btn btn-success">Edit</a> 
+                                    <a href="{% url 'delete_student' student.id %}" class="btn btn-danger">Delete</a>
                                 </td>
                                 </tr>
                                 {% endfor %}
