@@ -69,7 +69,11 @@ urlpatterns = [
     path('finance_home/', FinanceViews.finance_home, name="finance_home"),
     path('admin_profile/', FinanceViews.finance_profile, name="finance_profile"),
     path('payslip/<int:pk>/', FinanceViews.payslip, name='dashboard_payslip'),
-    path('invoices/create',FinanceViews.createInvoice, name='create-invoice'),
+    # path('invoices/create',FinanceViews.createInvoice, name='create-invoice'),
+    path('create_invoice/', FinanceViews.create_invoice, name='create_invoice'),
+    path('view_invoice/', FinanceViews.view_invoice, name='view_invoice'),
+    path('delete_invoice/<int:pk>/', FinanceViews.delete_invoice, name='delete_invoice'),
+    path('view_invoice_detail/<int:pk>/', FinanceViews.view_invoice_detail, name='view_invoice_detail'),
 
 
 ]

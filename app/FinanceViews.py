@@ -6,7 +6,8 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 import json
-from app.models import CustomUser,  Staffs, Departments, Intakes, Finance, Students, Invoice
+from .models import CustomUser,  Staffs, Departments, Intakes, Finance, Students, Invoice, InvoiceDetail
+from .forms import InvoiceDetailForm, InvoiceDetailFormSet, InvoiceForm
 import os
 from uuid import uuid4
 from django.conf import settings
@@ -45,12 +46,123 @@ def payslip(request, pk):
 
 
 
-def createInvoice(request):
-    #create a blank invoice ....
-    # number = 'INV-'+str(uuid4()).split('-')[-1]
-    newInvoice = Invoice.objects.create()#number=number
-    newInvoice.save()
+# def createInvoice(request):
+#     #create a blank invoice ....
+#     # number = 'INV-'+str(uuid4()).split('-')[-1]
+#     newInvoice = Invoice.objects.create()#number=number
+#     newInvoice.save()
 
-    inv = Invoice.objects.get()#number=number
-    return redirect('create-build-invoice', slug=inv.slug)
+#     inv = Invoice.objects.get()#number=number
+#     return redirect('create-build-invoice', slug=inv.slug)
 
+
+
+def create_invoice(request):
+    total_students = Students.objects.count()
+    total_invoice = Invoice.objects.count()
+
+    form = InvoiceForm()
+    formset = InvoiceDetailFormSet()
+    if request.method == "POST":
+        form = InvoiceForm(request.POST)
+        formset = InvoiceDetailFormSet(request.POST)
+        if form.is_valid():
+            invoice = Invoice.objects.create(
+                student=form.cleaned_data.get("student"),
+                date=form.cleaned_data.get("date"),
+                status=form.cleaned_data.get("status"),
+                type=form.cleaned_data.get("type"),
+                paymentTerms=form.cleaned_data.get("paymentTerms"),
+                amount=form.cleaned_data.get("amount"),
+
+            )
+        # if formset.is_valid():
+            # total = 0
+            # for form in formset:
+                # product = form.cleaned_data.get("product")
+                # amount = form.cleaned_data.get("amount")
+                # if product and amount:
+                #     # Sum each row
+                #     sum = float(product.product_price) * float(amount)
+                #     # Sum of total invoice
+                #     total += sum
+                #amountamount
+            InvoiceDetail(
+                invoice=invoice,
+            ).save()
+            # Pointing the customer
+            # points = 0
+            # if total > 1000:
+            #     points += total / 1000
+            # invoice.customer.customer_points = round(points)
+            # Save the points to Customer table
+            invoice.student.save()
+
+            # Save the invoice
+            # invoice.total = total
+            invoice.save()
+            return redirect("view_invoice")
+
+    context = {
+        "total_students": total_students,
+        "total_invoice": total_invoice,
+        "form": form,
+        "formset": formset,
+    }
+
+    return render(request, "finance_template/create_invoice.html", context)
+
+
+def view_invoice(request):
+    total_students = Students.objects.count()
+    total_invoice = Invoice.objects.count()
+
+    invoice = Invoice.objects.all()
+
+    context = {
+        "total_students": total_students,
+        "total_invoice": total_invoice,
+        "invoice": invoice,
+    }
+
+    return render(request, "finance_template/view_invoice.html", context)
+
+
+# Detail view of invoices
+def view_invoice_detail(request, pk):
+    total_students = Students.objects.count()
+    total_invoice = Invoice.objects.count()
+
+    invoice = Invoice.objects.get(id=pk)
+    invoice_detail = InvoiceDetail.objects.filter(invoice=invoice)
+
+    context = {
+        "total_students": total_students,
+        "total_invoice": total_invoice,
+        # 'invoice': invoice,
+        "invoice_detail": invoice_detail,
+    }
+
+    return render(request, "finance_template/view_invoice_detail.html", context)
+
+
+# Delete invoice
+def delete_invoice(request, pk):
+    total_students = Students.objects.count()
+    total_invoice = Invoice.objects.count()
+
+    invoice = Invoice.objects.get(id=pk)
+    invoice_detail = InvoiceDetail.objects.filter(invoice=invoice)
+    if request.method == "POST":
+        invoice_detail.delete()
+        invoice.delete()
+        return redirect("view_invoice")
+
+    context = {
+        "total_students": total_students,
+        "total_invoice": total_invoice,
+        "invoice": invoice,
+        "invoice_detail": invoice_detail,
+    }
+
+    return render(request, "finance_template/delete_invoice.html", context)
