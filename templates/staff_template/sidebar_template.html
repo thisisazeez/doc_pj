@@ -40,18 +40,18 @@
                 </li>
 
                 <li class="nav-item">
-                    {% url 'add_t' as add_t %}
-                    <a href="{{ add_t }}" class="nav-link {% if request.path == add_t %} active {% endif %}">
+                    {% url 'manage_sop' as manage_sop %}
+                    <a href="{{ manage_sop }}" class="nav-link {% if request.path == manage_sop %} active {% endif %}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
-                            Add Assignment {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
+                            Manage SOP  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
                         </p>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     {% url 'solution' as solution %}
-                    <a href="{{ solution }}" class="nav-link {% if request.path == solution %} active {% endif %}">
+                    {% comment %} <a href="{{ solution }}" class="nav-link {% if request.path == solution %} active {% endif %}"> {% endcomment %}
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             View Student Solution {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
@@ -62,7 +62,7 @@
 
                 <li class="nav-item">
                     {% url 'detail_t' as detail_t %}
-                    <a href="{{ detail_t }}" class="nav-link {% if request.path == detail_t %} active {% endif %}">
+                    {% comment %} <a href="{{ detail_t }}" class="nav-link {% if request.path == detail_t %} active {% endif %}"> {% endcomment %}
                         <i class="nav-icon fas fa-calendar-plus"></i>
                         <p>
                             View Detail {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
@@ -72,7 +72,7 @@
 
                 <li class="nav-item">
                     {% url 'staff_take_attendance' as staff_take_attendance %}
-                    <a href="{{ staff_take_attendance }}" class="nav-link {% if request.path == staff_take_attendance %} active {% endif %}">
+                    {% comment %} <a href="{{ staff_take_attendance }}" class="nav-link {% if request.path == staff_take_attendance %} active {% endif %}"> {% endcomment %}
                         <i class="nav-icon fas fa-calendar-plus"></i>
                         <p>
                             Take Attendance {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}

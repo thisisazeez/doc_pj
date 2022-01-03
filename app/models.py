@@ -66,6 +66,7 @@ class Departments(models.Model):
 #     ("current", "Current"),
 # )
 
+
 class student_status(models.Model):
     id = models.AutoField(primary_key=True)
     status_name = models.CharField(max_length=255, blank=True, null=True)
@@ -248,6 +249,25 @@ class Sop(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+
+
+
+
+class Cons(models.Model):
+    id = models.AutoField(primary_key=True)
+    date = models.DateField(auto_now=True)
+    one = models.CharField(max_length=255, blank=True, null=True)
+    amountOne = models.CharField(max_length=255, blank=True, null=True)
+    two = models.CharField(max_length=255, blank=True, null=True)
+    amountTwo = models.CharField(max_length=255, blank=True, null=True)
+    three = models.CharField(max_length=255, blank=True, null=True)
+    amountThree = models.CharField(max_length=255, blank=True, null=True)
+    four = models.CharField(max_length=255, blank=True, null=True)
+    amountFour = models.CharField(max_length=255, blank=True, null=True)
+    five = models.CharField(max_length=255, blank=True, null=True)
+    amountFive = models.CharField(max_length=255, blank=True, null=True)
+    is_approved = models.BooleanField(default=False)
 
 
 class SopDetail(models.Model):

@@ -15,67 +15,95 @@ def staff_home(request):
 
 
 # #department
-def add_department(request):
-    return render(request, "staff_template/add_department_template.html")
+def add_sop(request):
+    return render(request, "staff_template/add_sop_template.html")
 
-def add_department_save(request):
+def add_sop_save(request):
     if request.method != "POST":
         messages.error(request, "Invalid Method!")
-        return redirect('add_department')
+        return redirect('add_sop')
     else:
-        department = request.POST.get('department')
+        item_1 = request.POST.get('item_1')
+        i_price_1 = request.POST.get('i_price_1')
+        item_2 = request.POST.get('item_2')
+        i_price_2 = request.POST.get('i_price_2')
+        item_3 = request.POST.get('item_3')
+        i_price_3 = request.POST.get('i_price_3')
+        item_4 = request.POST.get('item_4')
+        i_price_4 = request.POST.get('i_price_4')
+        item_5 = request.POST.get('item_5')
+        i_price_5 = request.POST.get('i_price_5')
+
         try:
-            department_model = Departments(department_name=department)
-            department_model.save()
-            messages.success(request, "Department Added Successfully!")
-            return redirect('add_department')
+            sop_model = Cons(one=item_1, amountOne=i_price_1, two=item_2, amountTwo=i_price_2,
+            three=item_3, amountThree=i_price_3, four=item_4, amountFour=i_price_4, five=item_5, amountFive=i_price_5)
+            sop_model.save()
+            messages.success(request, "SOP Added Successfully!")
+            return redirect('add_sop')
         except:
-            messages.error(request, "Failed to Add Department!")
-            return redirect('add_department')
+            messages.error(request, "Failed to Add SOP!")
+            return redirect('add_sop')
 
-def manage_department(request):
-    departments = Departments.objects.all()
+def manage_sop(request):
+    sops = Cons.objects.all()
     context = {
-        "departments": departments
+        "sops": sops
     }
-    return render(request, 'staff_template/manage_department_template.html', context)
+    return render(request, 'staff_template/manage_sop_template.html', context)
 
-def edit_department(request, department_id):
-    department = Departments.objects.get(id=department_id)
+def edit_sop(request, sop_id):
+    sop = Cons.objects.get(id=sop_id)
     context = {
-        "department": department,
-        "id": department_id
+        "sop": sop,
+        "id": sop_id,
     }
-    return render(request, 'staff_template/edit_department_template.html', context)
+    return render(request, 'staff_template/edit_sop_template.html', context)
 
-def edit_department_save(request):
+def edit_sop_save(request):
     if request.method != "POST":
         HttpResponse("Invalid Method")
     else:
-        department_id = request.POST.get('department_id')
-        department_name = request.POST.get('department')
-
+        sop_id = request.POST.get('sop_id')
+        item_1 = request.POST.get('item_1')
+        i_price_1 = request.POST.get('i_price_1')
+        item_2 = request.POST.get('item_2')
+        i_price_2 = request.POST.get('i_price_2')
+        item_3 = request.POST.get('item_3')
+        i_price_3 = request.POST.get('i_price_3')
+        item_4 = request.POST.get('item_4')
+        i_price_4 = request.POST.get('i_price_4')
+        item_5 = request.POST.get('item_5')
+        i_price_5 = request.POST.get('i_price_5')
         try:
-            department = Departments.objects.get(id=department_id)
-            department.department_name = department_name
-            department.save()
+            sop = Cons.objects.get(id=sop_id)
+            sop.one = item_1
+            sop.amountOne = i_price_1
+            sop.two = item_2
+            sop.amountTwo = i_price_2
+            sop.three = item_3
+            sop.amountThree = i_price_3
+            sop.four = item_4
+            sop.amountFour = i_price_4
+            sop.five = item_5
+            sop.amountFive = i_price_5
+            sop.save()
 
-            messages.success(request, "department Updated Successfully.")
-            return redirect('/edit_department/'+department_id)
+            messages.success(request, "SOP Updated Successfully.")
+            return redirect('/edit_sop/'+sop_id)
 
         except:
-            messages.error(request, "Failed to Update department.")
-            return redirect('/edit_department/'+department_id)
+            messages.error(request, "Failed to Update SOP.")
+            return redirect('/edit_sop/'+sop_id)
 
-def delete_department(request, department_id):
-    department = Departments.objects.get(id=department_id)
+def delete_sop(request, sop_id):
+    sop = Cons.objects.get(id=sop_id)
     try:
-        department.delete()
-        messages.success(request, "department Deleted Successfully.")
-        return redirect('manage_department')
+        sop.delete()
+        messages.success(request, "SOP Deleted Successfully.")
+        return redirect('manage_sop')
     except:
-        messages.error(request, "Failed to Delete department.")
-        return redirect('manage_department')
+        messages.error(request, "Failed to Delete SOP.")
+        return redirect('manage_sop')
 
 
 

@@ -73,6 +73,14 @@ urlpatterns = [
     # path('staff_view_invoice/', StaffViews.view_invoice, name='staff_view_invoice'),
     # path('staff_delete_invoice/<int:pk>/', StaffViews.delete_invoice, name='staff_delete_invoice'),
     # path('staff_view_invoice_detail/<int:pk>/', StaffViews.view_invoice_detail, name='staff_view_invoice_detail'),
+    path('add_sop/', StaffViews.add_sop, name="add_sop"),
+    path('add_sop_save/', StaffViews.add_sop_save, name="add_sop_save"),
+    path('manage_sop/', StaffViews.manage_sop, name="manage_sop"),
+    path('edit_sop/<sop_id>/', StaffViews.edit_sop, name="edit_sop"),
+    path('edit_sop_save/', StaffViews.edit_sop_save, name="edit_sop_save"),
+    path('delete_sop/<sop_id>/', StaffViews.delete_sop, name="delete_sop"),
+    
+    
     # URSL for Finance
     path('finance_home/', FinanceViews.finance_home, name="finance_home"),
     path('finance_profile/', FinanceViews.finance_profile, name="finance_profile"),
