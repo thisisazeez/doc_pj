@@ -64,15 +64,24 @@ urlpatterns = [
 
     # URLS for Staff
     path('staff_home/', StaffViews.staff_home, name="staff_home"),
-
+    path('staff_profile/', StaffViews.staff_profile, name="staff_profile"),
+    # path('staff_create_product/', StaffViews.create_product, name='staff_create_product'),
+    # path('staff_view_product/', StaffViews.view_product, name='staff_view_product'),
+    # path('staff_edit_product/<int:pk>', StaffViews.edit_product, name='staff_edit_product'),
+    # path('staff_delete_product/<int:pk>/', StaffViews.delete_product, name='staff_delete_product'),
+    # path('staff_create_invoice/', StaffViews.create_invoice, name='staff_create_invoice'),
+    # path('staff_view_invoice/', StaffViews.view_invoice, name='staff_view_invoice'),
+    # path('staff_delete_invoice/<int:pk>/', StaffViews.delete_invoice, name='staff_delete_invoice'),
+    # path('staff_view_invoice_detail/<int:pk>/', StaffViews.view_invoice_detail, name='staff_view_invoice_detail'),
     # URSL for Finance
     path('finance_home/', FinanceViews.finance_home, name="finance_home"),
-    path('admin_profile/', FinanceViews.finance_profile, name="finance_profile"),
+    path('finance_profile/', FinanceViews.finance_profile, name="finance_profile"),
     path('payslip/<int:pk>/', FinanceViews.payslip, name='dashboard_payslip'),
     # path('invoices/create',FinanceViews.createInvoice, name='create-invoice'),
     path('create_invoice/', FinanceViews.create_invoice, name='create_invoice'),
     path('view_invoice/', FinanceViews.view_invoice, name='view_invoice'),
     path('delete_invoice/<int:pk>/', FinanceViews.delete_invoice, name='delete_invoice'),
+    path('finance_dashboard/venue_pdf/', FinanceViews.venue_pdf, name='venue_pdf'),
     path('view_invoice_detail/<int:pk>/', FinanceViews.view_invoice_detail, name='view_invoice_detail'),
 
 

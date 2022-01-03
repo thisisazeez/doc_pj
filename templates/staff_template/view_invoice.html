@@ -1,4 +1,4 @@
-{% extends "finance_template/base/base.html" %}
+{% extends "staff_template/base/base.html" %}
 <!-- Content Row -->
 {% block content %}
 <div class="row">
@@ -17,10 +17,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Date</th>
-                            <th>Student</th>
-                            <th>Status</th>
-                            <th>Type</th>
-                            <th>PaymentType</th>
+                            <th>Customer</th>
                             <th>Total</th>
                             <th>Detail</th>
                             <th>Delete</th>
@@ -36,29 +33,13 @@
                                 {{i.date}}
                             </td>
                             <td style="padding: 0.45em;">
-                                {{i.student}}
+                                {{i.customer}}
                             </td>
                             <td style="padding: 0.45em;">
-                                {{i.type}}
-                            </td>
-                            <td style="padding: 0.45em;">
-                                {{i.status}}
-                            </td>
-                            <td style="padding: 0.45em;">
-                                {{i.paymentType}}
-                            </td>
-                            
-                            <td style="padding: 0.45em;">
-                                {{i.amount}}
+                                {{i.total}}
                             </td>
                             <td style="padding: 0;">
                                 <a href="{% url 'view_invoice_detail' i.id %}" class="btn btn-outline-primary"
-                                   style="width: 100%; height: 100%; border-radius: 0">
-                                    <i class="fas fa-long-arrow-alt-right"></i>
-                                </a>
-                            </td>
-                            <td style="padding: 0;">
-                                <a href="{% url 'venue_pdf' %}" class="btn btn-outline-primary"
                                    style="width: 100%; height: 100%; border-radius: 0">
                                     <i class="fas fa-long-arrow-alt-right"></i>
                                 </a>

@@ -7,13 +7,17 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 import json
 from .models import CustomUser,  Staffs, Departments, Intakes, Finance, Students, Invoice, InvoiceDetail
-from .forms import InvoiceDetailForm, InvoiceDetailFormSet, InvoiceForm
+from .forms import  InvoiceForm
 import os
 from uuid import uuid4
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
+import io
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
+from reportlab.lib.pagesizes import letter
 from django.contrib.staticfiles import finders
 
 
@@ -23,6 +27,43 @@ def finance_home(request):
 def finance_profile(request):
     pass
 
+
+def venue_pdf(request):
+    buf = io.BytesIO()
+
+    c = canvas.Canvas(buf, pagesize=letter, bottomup=0)
+    textob = c.beginText()
+    textob.setTextOrigin(inch, inch)
+    textob.setFont("Helvetica", 14)
+    # lines = [
+    #     "Hi Evevery One",
+    #     "Hi Evevery One",
+    #     "Hi Evevery One",
+    # ]
+
+    receipt = InvoiceDetail.objects.all().get(id=id)
+
+    lines = []
+
+    for rc in receipt:
+        lines.append(rc.invoice)
+        lines.append(rc.amount)
+        lines.append(" ")
+
+
+
+
+
+
+    # for line in lines:
+    #     textob.textLine(line)
+
+    c.drawText(textob)
+    c.showPage()
+    c.save()
+    buf.seek(0)
+
+    return FileResponse(buf, as_attachment=True, filename='reciept.pdf')
 
 def payslip(request, pk):
     student = Students.objects.get(id=pk)
@@ -62,10 +103,10 @@ def create_invoice(request):
     total_invoice = Invoice.objects.count()
 
     form = InvoiceForm()
-    formset = InvoiceDetailFormSet()
+    # formset = InvoiceDetailFormSet()
     if request.method == "POST":
         form = InvoiceForm(request.POST)
-        formset = InvoiceDetailFormSet(request.POST)
+        # formset = InvoiceDetailFormSet(request.POST)
         if form.is_valid():
             invoice = Invoice.objects.create(
                 student=form.cleaned_data.get("student"),
@@ -107,7 +148,7 @@ def create_invoice(request):
         "total_students": total_students,
         "total_invoice": total_invoice,
         "form": form,
-        "formset": formset,
+        # "formset": formset,
     }
 
     return render(request, "finance_template/create_invoice.html", context)

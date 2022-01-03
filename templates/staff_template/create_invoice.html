@@ -1,4 +1,4 @@
-{% extends "finance_template/base/base.html" %}
+{% extends "staff_template/base/base.html" %}
 <!-- Content Row -->
 {% block content %}
 <div class="row">
@@ -17,34 +17,11 @@
                         <label class="form-label" for="invoice_date">Date</label>
                         {{form.date}}
                     </div>
-
                     <div class="mb-3">
-                        <label class="form-label" for="invoice_status_name">Status</label>
-                        {{form.status}}
+                        <label class="form-label" for="invoice_customer_name">Customer name</label>
+                        {{form.customer}}
                     </div>
-
-                    <div class="mb-3">
-                        <label class="form-label" for="invoice_paymentTerms_name">PaymentType</label>
-                        {{form.paymentTerms}}
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label" for="invoice_type_name">Type</label>
-                        {{form.type}}
-                    </div>
-
-
-                    <div class="mb-3">
-                        <label class="form-label" for="invoice_amount">Amount</label>
-                        {{form.amount}}
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label" for="invoice_student_name">Student name</label>
-                        {{form.student}}
-                    </div>
-                    
-                    {% comment %} {{ formset.management_form }}
+                    {{ formset.management_form }}
                     {% for form in formset %}
                     <div class="table">
                         <table class="table">
@@ -60,7 +37,7 @@
                             </tr>
                         </table>
                     </div>
-                    {% endfor %} {% endcomment %}
+                    {% endfor %}
                     <div class="mb-3 d-flex justify-content-center">
                         <input class="btn btn-outline-warning add-form-row" style="margin: 0 1em 0 1em; width: 40%"
                             type="button" value="Add more product" id="add_more">

@@ -28,6 +28,7 @@ class Staffs(models.Model):
     address = models.TextField()
     nin = models.CharField(max_length=255)
     phone_num = models.CharField(max_length=255)
+    customer_points = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = models.Manager()
@@ -229,6 +230,35 @@ class InvoiceDetail(models.Model):
 # 	month = forms.ChoiceField(choices=MONTHS_CHOICES)
 # 	year = forms.ChoiceField(choices=YEAR_CHOICES)
 
+
+
+class Product(models.Model):
+    product_name = models.CharField(max_length=255)
+    product_price = models.FloatField(default=0)
+    product_unit = models.CharField(max_length=255)
+    product_is_delete = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.product_name)
+
+class Sop(models.Model):
+    date = models.DateField()
+    customer = models.ForeignKey(Staffs, on_delete=models.SET_NULL, blank=True, null=True)
+    total = models.FloatField(default=0)
+
+    def __str__(self):
+        return str(self.id)
+
+
+class SopDetail(models.Model):
+    sop = models.ForeignKey(Sop, on_delete=models.SET_NULL, blank=True, null=True)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True)
+    amount = models.IntegerField(default=0)
+
+    @property
+    def get_total_bill(self):
+        total = float(self.product.product_price) * float(self.amount)
+        return total
 
 @receiver(post_save, sender=CustomUser)
 # Now Creating a Function which will automatically insert data in HOD, Staff or Finance
