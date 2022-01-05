@@ -25,7 +25,7 @@ SECRET_KEY = 'j9=)#zeg5o%i0ikcw4=26rck_=0e7$=py1&w^@g(*zp*8&fa%+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'app',
     'crispy_forms',
     'easy_pdf',
+    'slick_reporting',
 ]
 
 MIDDLEWARE = [

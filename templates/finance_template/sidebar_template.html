@@ -34,6 +34,17 @@
                     </a>
                 </li>
 
+
+                <li class="nav-item">
+                    {% url 'manage_reciept' as manage_reciept %}
+                    <a href="{{ manage_reciept }}" class="nav-link {% if request.path == manage_reciept %} active {% endif %}">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Issue Reciept <span class="right badge badge-danger">New</span>
+                        </p>
+                    </a>
+                </li>
+<!-- 
                 <hr>
                 <li class="nav-item">
                     {% url 'dashboard_payslip' as dashboard_payslip %}
@@ -44,7 +55,18 @@
                         </p>
                     </a>
                 </li>
-            </ul>
+            </ul> -->
+
+            <!-- <li class="nav-item">
+                {% url 'add_reciept' as add_reciept %}
+                <a href="{{ add_reciept }}" class="nav-link {% if request.path == add_reciept %} active {% endif %}">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                        Reciept {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
+                    </p>
+                </a>
+            </li>
+        </ul> -->
 
         </nav>
         <!-- /.sidebar-menu -->

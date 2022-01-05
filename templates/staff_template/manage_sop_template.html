@@ -1,7 +1,7 @@
-{% extends 'hod_template/base_template.html' %}
+{% extends 'staff_template/base_template.html' %}
 
 {% block page_title %}
-    Manage Department
+    Manage SOPs
 {% endblock page_title %}
 
 {% block main_content %}
@@ -60,22 +60,24 @@
                             <thead>
                                 <tr>
                                 <th>ID</th>
-                                <th>Department Name</th>
+                                <th>One Name</th>
+                                <th>One Price</th>
                                 <th>Created At</th>
-                                <th>Updated At</th>
+                                <th>Approved</th>
                                 <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for department in departments %}
+                                {% for sop in sops %}
                                 <tr>
-                                <td>{{ department.id }}</td>
-                                <td>{{ department.department_name }}</td>
-                                <td>{{ department.created_at }}</td>
-                                <td>{{ department.updated_at }}</td>
+                                <td>{{ sop.id }}</td>
+                                <td>{{ sop.one }}</td>
+                                <td>{{ sop.amountOne }}</td>
+                                <td>{{ sop.date }}</td>
+                                <td>{{ sop.is_approved }}</td>
                                 <td>
-                                    <a href="{% url 'edit_department' department.id %}" class="btn btn-success">Edit</a> 
-                                    <a href="{% url 'delete_department' department.id %}" class="btn btn-danger">Delete</a>
+                                    {% comment %} <a href="{% url 'edit_department' department.id %}" class="btn btn-success">Edit</a>  {% endcomment %}
+                                    <a href="{% url 'delete_sop' sop.id %}" class="btn btn-danger">Delete</a>
                                 </td>
                                 </tr>
                                 {% endfor %}

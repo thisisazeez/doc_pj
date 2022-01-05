@@ -5,7 +5,9 @@ from django.core.files.storage import FileSystemStorage #To upload Profile Pictu
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 import json
-from app.models import CustomUser,  Staffs, Departments, Intakes, Finance, Students, student_status
+from slick_reporting.views import SlickReportView
+from slick_reporting.fields import SlickReportField
+from app.models import CustomUser,  Staffs, Departments, Intakes, Cons,Finance, Students, student_status, Reciept
 
 
 def admin_home(request):
@@ -547,3 +549,84 @@ def check_username_exist(request):
     else:
         return HttpResponse(False)
 
+# SOP Admin
+
+
+def manage_sop_admin(request):
+    sops = Cons.objects.all()
+    context = {
+        "sops": sops
+    }
+    return render(request, 'hod_template/manage_sop_template.html', context)
+
+def edit_sop_admin(request, sop_id):
+    sop = Cons.objects.get(id=sop_id)
+    context = {
+        "sop": sop,
+        "id": sop_id,
+    }
+    return render(request, 'hod_template/edit_sop_template.html', context)
+
+def edit_sop_admin_save(request):
+    if request.method != "POST":
+        HttpResponse("Invalid Method")
+    else:
+        sop_id = request.POST.get('sop_id')
+        item_1 = request.POST.get('item_1')
+        i_price_1 = request.POST.get('i_price_1')
+        item_2 = request.POST.get('item_2')
+        i_price_2 = request.POST.get('i_price_2')
+        item_3 = request.POST.get('item_3')
+        i_price_3 = request.POST.get('i_price_3')
+        item_4 = request.POST.get('item_4')
+        i_price_4 = request.POST.get('i_price_4')
+        item_5 = request.POST.get('item_5')
+        i_price_5 = request.POST.get('i_price_5')
+        is_approved= request.POST.get('is_approved')
+        if is_approved == 'on':
+            is_approved = True
+        else:
+            is_approved = False
+        # try:
+        sop = Cons.objects.get(id=sop_id)
+        sop.one = item_1
+        sop.amountOne = i_price_1
+        sop.two = item_2
+        sop.amountTwo = i_price_2
+        sop.three = item_3
+        sop.amountThree = i_price_3
+        sop.four = item_4
+        sop.amountFour = i_price_4
+        sop.five = item_5
+        sop.amountFive = i_price_5
+        sop.is_approved = is_approved
+        sop.save()
+
+        messages.success(request, "SOP Updated Successfully.")
+        return redirect('/edit_sop_admin/'+sop_id)
+
+        # except:
+        #     messages.error(request, "Failed to Update SOP.")
+        #     return redirect('/edit_sop_admin/'+sop_id)
+
+def delete_sop_admin(request, sop_id):
+    sop = Cons.objects.get(id=sop_id)
+    try:
+        sop.delete()
+        messages.success(request, "SOP Deleted Successfully.")
+        return redirect('manage_sop_admin')
+    except:
+        messages.error(request, "Failed to Delete SOP.")
+        return redirect('manage_sop_admin')
+
+
+class SimpleListReport(SlickReportView):
+    
+    report_model = Reciept
+    # the model containing the data we want to analyze
+
+    date_field = 'date'
+    # a date/datetime field on the report model
+
+    # fields on the report model ... surprise !
+    columns = ['date', 'student_name', 'student_id', 'tution', 'acceptance', 'application', 'others','amount', 'total']

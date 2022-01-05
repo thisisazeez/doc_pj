@@ -1,0 +1,115 @@
+{% extends 'hod_template/base_template.html' %}
+
+{% block page_title %}
+    Edit SOP | #ID : {{ sop.id }}
+{% endblock page_title %}
+
+{% block main_content %}
+
+{% load static %}
+ 
+<section class="content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Edit SOP</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form role="form" method="POST" action="{% url 'edit_sop_admin_save' %}">
+                        {% csrf_token %}
+
+                        
+                                {% comment %} Display Messages {% endcomment %}
+                                {% if messages %}
+                                <div class="form-group">
+                                <div class="col-12">
+                                    {% for message in messages %}
+                                    {% if message.tags == "error" %}
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                        {{ message }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                    {% elif message.tags == "success" %}
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                        {{ message }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                                </div>
+                                {% endif %}
+                            
+
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>Item 1 Name </label>
+                                <input type="text" class="form-control" name="item_1" placeholder="Enter Item 1" value="{{sop.one}}">
+                                <input type="hidden" name="sop_id" value="{{ sop.id }}" />
+                            </div>
+                            <div class="form-group">
+                                <label>Item 1 Price </label>
+                                <input type="text" class="form-control" name="i_price_1" placeholder="Enter Item 1 Price" value="{{sop.amountOne}}">
+                            </div>
+                            <div class="form-group">
+                                <label>Item 2 Name </label>
+                                <input type="text" class="form-control" name="item_2" placeholder="Enter Item 2" value="{{sop.two}}">
+                            </div>
+                            <div class="form-group">
+                                <label>Item 2 Price </label>
+                                <input type="text" class="form-control" name="i_price_2" placeholder="Enter Item 2 Price" value="{{sop.amountTwo}}">
+                            </div>
+                            <div class="form-group">
+                                <label>Item 3 Name </label>
+                                <input type="text" class="form-control" name="item_3" placeholder="Enter Item 3" value="{{sop.three}}">
+                            </div>
+                            <div class="form-group">
+                                <label>Item 3 Price </label>
+                                <input type="text" class="form-control" name="i_price_3" placeholder="Enter Item 3 Price" value="{{sop.amountThree}}">
+                            </div>
+                            <div class="form-group">
+                                <label>Item 4 Name </label>
+                                <input type="text" class="form-control" name="item_4" placeholder="Enter Item 4" value="{{sop.four}}">
+                            </div>
+                            <div class="form-group">
+                                <label>Item 4 Price </label>
+                                <input type="text" class="form-control" name="i_price_4" placeholder="Enter Item 4 Price" value="{{sop.amountFour}}">
+                            </div>
+                            <div class="form-group">
+                                <label>Item 5 Name </label>
+                                <input type="text" class="form-control" name="item_5" placeholder="Enter Item 5" value="{{sop.five}}">
+                            </div>
+                            <div class="form-group">
+                                <label>Item 5 Price </label>
+                                <input type="text" class="form-control" name="i_price_5" placeholder="Enter Item 5 Price" value="{{sop.amountFive}}">
+                            </div>
+                            <div class="form-group">
+                                <label>Aprrove</label>
+                                <input type="checkbox" class="form-control" name="is_approved">
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Update SOP</button>
+                        </div>
+                    </form>
+                    </div>
+                    <!-- /.card -->
+
+                </div>
+            </div>
+
+        </div><!-- /.container-fluid -->
+      </section>
+
+  {% endblock main_content %}

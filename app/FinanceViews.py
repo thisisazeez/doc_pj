@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 import json
-from .models import CustomUser,  Staffs, Departments, Intakes, Finance, Students, Invoice, InvoiceDetail
+from .models import CustomUser, Reciept,  Staffs, Departments, Intakes, Finance, Students, Invoice, InvoiceDetail
 from .forms import  InvoiceForm
 import os
 from uuid import uuid4
@@ -207,3 +207,153 @@ def delete_invoice(request, pk):
     }
 
     return render(request, "finance_template/delete_invoice.html", context)
+
+
+
+
+
+# Recipet O.G
+
+def add_reciept(request):
+    return render(request, "finance_template/add_reciept_template.html")
+
+def add_reciept_save(request):
+    if request.method != "POST":
+        messages.error(request, "Invalid Method!")
+        return redirect('add_reciept')
+    else:
+        stu_name = request.POST.get('stu_name')
+        stu_id = request.POST.get('stu_id')
+        tution = request.POST.get('tution')
+        if tution == 'on':
+            tution = True
+        else:
+            tution = False
+        acceptance = request.POST.get('acceptance')
+        if acceptance == 'on':
+            acceptance = True
+        else:
+            acceptance = False
+        application = request.POST.get('application')
+        if application == 'on':
+            application = True
+        else:
+            application = False
+        others = request.POST.get('others')
+        if others == 'on':
+            others = True
+        else:
+            others = False
+        amount = request.POST.get('amount')
+        total = request.POST.get('total')
+        notes = request.POST.get('notes')
+
+        try:
+            reciept_model = Reciept(student_name=stu_name, student_id=stu_id,tution=tution, acceptance=acceptance,
+            application=application, amount=amount, total=total, notes=notes)
+            reciept_model.save()
+            messages.success(request, "Reciept Added Successfully!")
+            return redirect('add_reciept')
+        except:
+            messages.error(request, "Failed to Add Recipt!")
+            return redirect('add_reciept')
+
+
+def manage_reciept(request):
+    rec = Reciept.objects.all()
+    context = {
+        "rec": rec
+    }
+    return render(request, 'finance_template/manage_reciept_template.html', context)
+
+def edit_reciept(request, reciept_id):
+    reciept = Reciept.objects.get(id=reciept_id)
+    context = {
+        "reciept": reciept,
+        "id": reciept_id,
+    }
+    return render(request, 'finance_template/edit_reciept_template.html', context)
+
+def pdf_report_create(request, reciept_id):
+    reciept = Reciept.objects.get(id=reciept_id)
+    context = {
+        "reciept": reciept,
+        "id": reciept_id,
+    }
+    template_path = 'finance_template/PdfReciept.html'
+    response = HttpResponse(content_type='application/pdf')
+
+    response['Content-Disposition'] = 'filename="stu_report.pdf"'
+
+    template = get_template(template_path)
+
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+
+def edit_reciept_save(request):
+    if request.method != "POST":
+        HttpResponse("Invalid Method")
+    else:        
+        stu_name = request.POST.get('stu_name')
+        stu_id = request.POST.get('stu_id')
+        reciept_id = request.POST.get('reciept_id')
+        tution = request.POST.get('tution')
+        if tution == 'on':
+            tution = True
+        else:
+            tution = False
+        acceptance = request.POST.get('acceptance')
+        if acceptance == 'on':
+            acceptance = True
+        else:
+            acceptance = False
+        application = request.POST.get('application')
+        if application == 'on':
+            application = True
+        else:
+            application = False
+        others = request.POST.get('others')
+        if others == 'on':
+            others = True
+        else:
+            others = False
+        amount = request.POST.get('amount')
+        total = request.POST.get('total')
+        notes = request.POST.get('notes')
+        try:
+            rec = Reciept.objects.get(id=reciept_id)
+            rec.student_name = stu_name
+            rec.student_id = stu_id
+            rec.tution = tution
+            rec.acceptance = acceptance
+            rec.application = application
+            rec.others = others
+            rec.amount = amount
+            rec.total = total
+            rec.notes = notes
+            rec.save()
+
+            messages.success(request, "Reciept Updated Successfully.")
+            return redirect('/edit_reciept/'+reciept_id)
+
+        except:
+            messages.error(request, "Failed to Update Reciept.")
+            return redirect('/edit_reciept/'+reciept_id)
+
+def delete_reciept(request, reciept_id):
+    reciept = Reciept.objects.get(id=reciept_id)
+    try:
+        reciept.delete()
+        messages.success(request, "Reciept Deleted Successfully.")
+        return redirect('manage_reciept')
+    except:
+        messages.error(request, "Failed to Delete Reciept.")
+        return redirect('manage_reciept')

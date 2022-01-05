@@ -6,7 +6,7 @@ import django
 from django.forms import ModelForm
 import datetime, calendar
 from django import forms
-from django.template.defaultfilters import slugify
+from django.template.defaultfilters import default, slugify
 from django.utils import timezone
 from uuid import uuid4
 from django.urls import reverse
@@ -90,6 +90,41 @@ class Students(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     objects = models.Manager()
 
+
+
+
+class Reciept(models.Model):
+    TERMS = [
+    ('14 days', '14 days'),
+    ('30 days', '30 days'),
+    ('60 days', '60 days'),
+    ]
+
+    TYPE = [
+    ('cash', 'cash'),
+    ('transfer', 'transfer'),
+    ]
+
+    STATUS = [
+    ('TUTION', 'TUTION'),
+    ('APPLICATION', 'APPLICATION'),
+    ('ACCEPTANCE', 'ACCEPTANCE'),
+    ('OTHERS', 'OTHERS'),
+    ]
+    date = models.DateField(auto_now=True, blank=True, null=True)
+    # transaction_date = models.DateTimeField(auto_now_add=True, default='', db_index=True)
+    student_name = models.CharField(max_length=255, blank=True, null=True)
+    student_id = models.CharField(max_length=255, blank=True, null=True)
+    notes = models.CharField(max_length=255, blank=True, null=True)
+    # student = models.ForeignKey(Students, on_delete=models.SET_NULL, blank=True, null=True)
+    tution = models.BooleanField(default=False)
+    acceptance = models.BooleanField(default=False)
+    application = models.BooleanField(default=False)
+    others = models.BooleanField(default=False)
+    # type = models.CharField(choices=TYPE, default='cash', max_length=100)
+    amount = models.CharField(blank=True, null=True, max_length=100)
+    # paymentTerms = models.CharField(choices=TERMS, default='14 days', max_length=100)
+    total = models.FloatField(default=0)
 
 class Invoice(models.Model):
     TERMS = [

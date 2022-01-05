@@ -1,0 +1,106 @@
+{% extends 'finance_template/base_template.html' %}
+
+{% block page_title %}
+    Add Reciept
+{% endblock page_title %}
+
+{% block main_content %}
+
+{% load static %}
+
+<section class="content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Add Reciept</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form role="form" method="POST" action="{% url 'add_reciept_save' %}">
+                        {% csrf_token %}
+
+                        
+                                {% comment %} Display Messages {% endcomment %}
+                                {% if messages %}
+                                <div class="form-group">
+                                <div class="col-12">
+                                    {% for message in messages %}
+                                    {% if message.tags == "error" %}
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                        {{ message }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                    {% elif message.tags == "success" %}
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                        {{ message }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                                </div>
+                                {% endif %}
+                            
+
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>Student Name </label>
+                                <input type="text" class="form-control" name="stu_name" placeholder="Enter Student Name">
+                            </div>
+                            <div class="form-group">
+                                <label>Student ID </label>
+                                <input type="text" class="form-control" name="stu_id" placeholder="Enter Student ID">
+                            </div>
+                            <div class="form-group">
+                                <label>Tution</label>
+                                <input type="checkbox" class="form-control" name="tution">
+                            </div>
+                            <div class="form-group">
+                                <label>Acceptance</label>
+                                <input type="checkbox" class="form-control" name="acceptance">
+                            </div>
+                            <div class="form-group">
+                                <label>Application</label>
+                                <input type="checkbox" class="form-control" name="application">
+                            </div>
+                            <div class="form-group">
+                                <label>Others</label>
+                                <input type="checkbox" class="form-control" name="others">
+                            </div>
+                            <div class="form-group">
+                                <label>Amount </label>
+                                <input type="text" class="form-control" name="amount" placeholder="Enter Amount">
+                            </div>
+                            <div class="form-group">
+                                <label>Total </label>
+                                <input type="text" class="form-control" name="total" placeholder="Enter Total">
+                            </div>
+                            <div class="form-group">
+                                <label>Notes </label>
+                                <input type="text" class="form-control" name="notes" placeholder="Enter Notes">
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Add Reciept</button>
+                        </div>
+                    </form>
+                    </div>
+                    <!-- /.card -->
+
+                </div>
+            </div>
+
+        </div><!-- /.container-fluid -->
+      </section>
+
+  {% endblock main_content %}

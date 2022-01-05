@@ -1,0 +1,45 @@
+{% comment %} {% extends 'finance_template/base_template.html' %}
+{% block main_content %} {% endcomment %}
+ <h1>Show Info</h1>
+        
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col" style="visibility:collapse">Id</th>
+                        <th scope="col">Student Name</th>
+                        <th scope="col">Student ID</th>
+                        <th scope="col">Student Total</th>
+                        <th scope="col">Student Amount Payed</th>
+                        <th scope="col">Application Fee</th>
+                        <th scope="col">Tution Fee</th>
+                        <th scope="col">Acceptance Fee</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      
+                     {% comment %} {% for reciept in reciept %} {% endcomment %}
+
+                        <tr>
+                            <td style="visibility:collapse">{{ reciept.id }}</td>
+                            <td class="m-2">{{ reciept.student_name }}</td>
+                            <td><b>{{ reciept.student_id }}</b></td>
+                            <td style="color: blueviolet; margin: 5px">{{ reciept.total }}</td>
+                            <td>{{ reciept.amount }}</td>
+                            <td>{{ reciept.application }}</td>
+                            <td>{{ reciept.tution }}</td>
+                            <td>{{ reciept.acceptance }}</td>
+                        </tr>
+
+                      {% comment %} {% endfor %} {% endcomment %}
+                     
+                    </tbody>
+                  </table>
+
+            </div>
+        </div>
+    </div>
+    {% comment %} {% endblock main_content %} {% endcomment %}

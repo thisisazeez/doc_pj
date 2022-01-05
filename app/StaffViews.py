@@ -14,7 +14,7 @@ def staff_home(request):
     return render(request, "staff_template/staff_home_template.html")#, context
 
 
-# #department
+# #SOP
 def add_sop(request):
     return render(request, "staff_template/add_sop_template.html")
 

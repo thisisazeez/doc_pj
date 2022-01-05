@@ -16,6 +16,7 @@ urlpatterns = [
     path('admin_home/', HodViews.admin_home, name="admin_home"),
     path('admin_profile/', HodViews.admin_profile, name="admin_profile"),
     path('admin_profile_update/', HodViews.admin_profile_update, name="admin_profile_update"),
+    path('report/', HodViews.SimpleListReport.as_view(), name="report_gen"),
       # Admin Staff
     path('add_staff/', HodViews.add_staff, name="add_staff"),
     path('add_staff_save/', HodViews.add_staff_save, name="add_staff_save"),
@@ -47,6 +48,10 @@ urlpatterns = [
     path('edit_department_save/', HodViews.edit_department_save, name="edit_department_save"),
     path('delete_department/<department_id>/', HodViews.delete_department, name="delete_department"),
 
+    path('manage_sop_admin/', HodViews.manage_sop_admin, name="manage_sop_admin"),
+    path('edit_sop_admin/<sop_id>/', HodViews.edit_sop_admin, name="edit_sop_admin"),
+    path('edit_sop_admin_save/', HodViews.edit_sop_admin_save, name="edit_sop_admin_save"),
+    path('delete_sop_admin/<sop_id>/', HodViews.delete_sop_admin, name="delete_sop_admin"),
 
     path('add_status/', HodViews.add_status, name="add_status"),
     path('add_status_save/', HodViews.add_status_save, name="add_status_save"),
@@ -91,6 +96,13 @@ urlpatterns = [
     path('delete_invoice/<int:pk>/', FinanceViews.delete_invoice, name='delete_invoice'),
     path('finance_dashboard/venue_pdf/', FinanceViews.venue_pdf, name='venue_pdf'),
     path('view_invoice_detail/<int:pk>/', FinanceViews.view_invoice_detail, name='view_invoice_detail'),
-
+    path('add_reciept/', FinanceViews.add_reciept, name="add_reciept"),
+    path('add_reciept_save/', FinanceViews.add_reciept_save, name="add_reciept_save"),
+    path('manage_reciept/', FinanceViews.manage_reciept, name="manage_reciept"),
+    path('edit_reciept/<reciept_id>/', FinanceViews.edit_reciept, name="edit_reciept"),
+    path('create_pdf/<reciept_id>/', FinanceViews.pdf_report_create, name="pdf_report_create"),
+    path('edit_reciept_save/', FinanceViews.edit_reciept_save, name="edit_reciept_save"),
+    path('delete_reciept/<reciept_id>/', FinanceViews.delete_reciept, name="delete_reciept"),
+   
 
 ]
