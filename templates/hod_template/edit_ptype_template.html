@@ -1,13 +1,13 @@
-{% extends 'finance_template/base_template.html' %}
+{% extends 'hod_template/base_template.html' %}
 
 {% block page_title %}
-    Add Reciept
+    Edit Payment Type | #ID : {{ ptype.id }}
 {% endblock page_title %}
 
 {% block main_content %}
 
 {% load static %}
-
+ 
 <section class="content">
         <div class="container-fluid">
 
@@ -16,11 +16,11 @@
                     <!-- general form elements -->
                     <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Add Reciept</h3>
+                        <h3 class="card-title">Edit Payment.T</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form role="form" method="POST" action="{% url 'add_reciept_save' %}">
+                    <form role="form" method="POST" action="{% url 'edit_ptype_save' %}">
                         {% csrf_token %}
 
                         
@@ -52,43 +52,16 @@
 
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Student Name </label>
-                                <input type="hidden" class="form-control" name="student_id" value="{{ student.id }}">
-                                <input type="text" class="form-control" name="stu_name" value="{{ student.first_name }} {{ student.last_name }}">
+                                <label>Pay.T Name </label>
+                                <input type="text" class="form-control" name="ptype" value="{{ ptype.ptype_name }}">
+                                <input type="hidden" name="ptype_id" value="{{ ptype.id }}" />
                             </div>
-                            <div class="form-group">
-                                <label>Student ID </label>
-                                <input type="text" class="form-control" name="stu_id" value="{{ student.student_id }}">
-                            </div>
-                            <div class="form-group">
-                                <label>NIN </label>
-                                <input type="text" class="form-control" name="stu_nin" value="{{ student.nin }}">
-                            </div>
-                            <div class="form-group">
-                                <label>Payment Type:</label>
-                                <select class="form-control" name="intake">
-                                    {% for ptype in ptype %}
-                                        <option>{{ ptype.ptype_name }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Amount </label>
-                                <input type="text" class="form-control" name="amount" placeholder="Enter Amount">
-                            </div>
-                            <div class="form-group">
-                                <label>Total </label>
-                                <input type="text" class="form-control" name="total" value="{{ student.totalFee }}">
-                            </div>
-                            <div class="form-group">
-                                <label>Notes </label>
-                                <input type="text" class="form-control" name="notes" placeholder="Enter Notes">
-                            </div>
+
                         </div>
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Add Reciept</button>
+                        <button type="submit" class="btn btn-primary">Update ptype</button>
                         </div>
                     </form>
                     </div>

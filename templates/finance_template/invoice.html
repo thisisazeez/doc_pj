@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="{% static 'pdf3.css' %}" rel="stylesheet">
+    <meta charset="utf-8">
+
+    <!-- Load paper.css for happy printing -->
+    <link rel="stylesheet" href="{% static 'pdf2.css' %}">
+    <link rel="stylesheet" href="{% static 'pdf1.css' %}">
+
+    <!-- Set page size here: A5, A4 or A3 -->
+    <!-- Set also "landscape" if you need -->
+    <style>@page {
+        size: A4 portrait;
+        margin-top: 8px;
+        margin-bottom: 10px;
+        margin-left: 20px;
+    }</style>
+    <style>
+        /* Three image containers (use 25% for four, and 50% for two, etc) */
+        .column {
+            float: left;
+            padding: 5px;
+        }
+
+        /* Clear floats after image containers */
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        table tbody tr td {
+            padding: 2px !important;
+            line-height: 1.35 !important;
+        }
+
+        @media print {
+            .box-body {
+                margin-top: 10px !important;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+
+    <script>
+        /*window.onload = function () {
+          window.print();
+           window.top.close();
+
+        }*/
+    </script>
+    <style>
+        .center-me {
+            font-size: 15px;
+            margin: auto;
+            height: 10px;
+            max-width: 500px;
+            margin: 75px auto 40px auto;
+            display: flex;
+        }
+    </style>
+</head>
+<!-- Set "A5", "A4" or "A3" for class name -->
+<!-- Set also "landscape" if you need -->
+<body class="A4 portrait">
+
+<!-- Each sheet element should have the class "sheet" -->
+<!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
+<section class="sheet" id="content-print">
+    <style>
+        table {
+            /*border-collapse: unset !important;*/
+        }
+    </style>
+
+    <div class="box-body" id="box_data" style="display: flex;padding: 5px 10px 0 10px;margin-bottom: -21px;">
+        <div style="width: 100%;padding-right: 10px;" class="col-md-12">
+            <div class="row">
+                <div class="col-lg-4" style="width: 70%;padding-left: 9px;">
+                    <img src="linco.png" alt="">
+                </div>
+                <div class="col-lg-8" style="width: 30%;">
+                    <h5 style="font-size: 20px;margin-bottom: 15px;margin-top: 45px;">Lincoln College Of Science Management and Technology</h5>
+
+                    <p style="font-size: 12px;margin: 0;padding: 0;">Along jikwoyi-karshi road,</p>
+
+                    <p style="font-size: 12px;margin: 0;padding-top: 3px;;">Abuja Nigeria</p>
+
+                    <p style="font-size: 12px;margin: 0;padding-top: 5px;;">Phone: +234 803 834 1496</p>
+                    
+                    <p style="font-size: 12px;margin: 0;padding-top: 5px;;">info@lincoln.edu.ng</p>
+                    
+                </div>
+            </div>
+            <div class="" style="display: flex;margin-top: 22px;">
+            <table border="1" style="width:30%">
+                <tr class="" style="background: rgba(217,225,242,1.0)">
+                    <td style="font-size: 14px;"  class="db text-center" width="100px">
+                        Date & TIme
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 12px;">{{ reciept.date }}</td>
+                   
+                </tr>
+            </table>
+            </div>
+            <br>
+
+            <table width="100%" border="1">
+                <tr style="background: rgba(217,225,242,1.0)">
+                    <th class="text-center" colspan="2" style="width: 25%;">Bill To</th>
+                </tr>
+                <tr>
+                    <th style="width: 5%;font-size: 12px;background: rgba(217,225,242,1.0)">Student Name</th>
+                    <th>{{ reciept.student_name }}</th>
+                </tr>
+                <tr>
+                    <th style="width: 5%;font-size: 12px;background: rgba(217,225,242,1.0)">Student Id</th>
+                    <th>{{ reciept.student_id }}</th>
+                </tr>
+                <tr>
+                    <th style="width: 5%;font-size: 12px;background: rgba(217,225,242,1.0)">Student NIN/Passport</th>
+                    <th>{{ reciept.nin }}</th>
+                </tr>
+                <tr>
+                    <th style="width: 5%;font-size: 12px;background: rgba(217,225,242,1.0)">Program</th>
+                    <th>{{ reciept.programme }}</th>
+                </tr>
+                <tr>
+                    <th style="width: 5%;font-size: 12px;background: rgba(217,225,242,1.0)">Total</th>
+                    <th>{{ reciept.total }}</th>
+                </tr>
+                <tr>
+                    <th style="width: 5%;font-size: 12px;background: rgba(217,225,242,1.0)">Amount Paid</th>
+                    <th>{{ reciept.amount }}</th>
+                </tr>
+                <tr>
+                    <th style="width: 5%;font-size: 12px;background: rgba(217,225,242,1.0)">Balance</th>
+                    <th></th>
+                    <td style="visibility:collapse">{{ reciept.id }}</td>
+                </tr>
+            </table>
+            <table>
+                <div>
+                <tr>
+                    <td width="19%" rowspan="3" valign="top">                        <h5>ACC/Signature_______________</h5><br>
+                        <strong class="asd"> &nbsp;<br><br><br></strong></td>
+                    <td width="65%" valign="top"></td><br><br><br>
+                       <td> 
+                        <h5>ST/Signature________________</h5><br><br>
+                    </td>
+
+                </tr>
+               </div>
+
+            </table>
+        </div>
+
+    </div>
+
+</section>
+</body>
+</html>

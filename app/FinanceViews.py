@@ -230,10 +230,11 @@ def add_reciept(request, student_id):
 def add_reciept_save(request):
     if request.method != "POST":
         messages.error(request, "Invalid Method!")
-        return redirect('add_reciept')
+        return redirect('manage_reciept')
     else:
         stu_name = request.POST.get('stu_name')
         stu_id = request.POST.get('stu_id')
+        student_id = request.POST.get('student_id')
         tution = request.POST.get('tution')
         if tution == 'on':
             tution = True
@@ -263,10 +264,10 @@ def add_reciept_save(request):
             application=application, amount=amount, total=total, notes=notes)
             reciept_model.save()
             messages.success(request, "Reciept Added Successfully!")
-            return redirect('add_reciept')
+            return redirect('/add_reciept/'+student_id)
         except:
             messages.error(request, "Failed to Add Recipt!")
-            return redirect('add_reciept')
+            return redirect('/add_reciept/'+student_id)
 
 
 def manage_reciept(request):

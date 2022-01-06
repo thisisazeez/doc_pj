@@ -169,6 +169,18 @@
               </a>
             </li> 
 
+
+            <li class="nav-item">
+              {% url 'manage_ptype' as manage_ptype %}
+              {% url 'edit_ptype' ptype_id=id as edit_ptype %}
+              <a href="{{ manage_ptype }}" class="nav-link {% if request.path == manage_ptype %} active {% endif %} {% if request.path == edit_ptype %} active {% endif %}">
+                <i class="nav-icon fas fa-chalkboard"></i>
+                <p>
+                  Manage Payment Type
+                </p>
+              </a>
+            </li> 
+
             <li class="nav-item">
               {% url 'manage_status' as manage_status %}
               {% url 'edit_status' status_id=id as edit_status %}
