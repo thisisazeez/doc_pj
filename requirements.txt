@@ -11,6 +11,7 @@ django-easy-pdf==0.1.1
 django-slick-reporting==0.6.3
 et-xmlfile==1.1.0
 future==0.18.2
+gunicorn==20.1.0
 html5lib==1.1
 httplib2==0.20.2
 inflect==5.3.0
