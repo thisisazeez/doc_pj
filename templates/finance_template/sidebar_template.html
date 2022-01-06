@@ -7,6 +7,11 @@
         <span class="brand-text font-weight-light">Lincoln University</span>
     </a>
 
+    <hr>
+    <form action="{% url 'finance_search_result' %}" method="get">
+        <input type="text" name="q" placeholder="Search....">
+    </form>
+    <hr>
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">

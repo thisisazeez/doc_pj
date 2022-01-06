@@ -1,0 +1,10 @@
+<h1>Search Results </h1>
+
+<ul>
+
+    {% for s in object_list %}
+    <li>
+        {{ s.username }},{{ s.student_id }},{{ s.programme.programme_name }}, {{ s.total }}, {{ s.nin }}, {{ s.ip_id }}<a href="{% url 'add_reciept' s.id %}">Issue Reciept</a>
+    </li>
+    {% endfor %}
+</ul>

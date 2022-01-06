@@ -157,6 +157,18 @@
               </a>
             </li> 
 
+
+            <li class="nav-item">
+              {% url 'manage_programme' as manage_programme %}
+              {% url 'edit_programme' programme_id=id as edit_programme %}
+              <a href="{{ manage_programme }}" class="nav-link {% if request.path == manage_programme %} active {% endif %} {% if request.path == edit_programme %} active {% endif %}">
+                <i class="nav-icon fas fa-chalkboard"></i>
+                <p>
+                  Manage Programme
+                </p>
+              </a>
+            </li> 
+
             <li class="nav-item">
               {% url 'manage_status' as manage_status %}
               {% url 'edit_status' status_id=id as edit_status %}

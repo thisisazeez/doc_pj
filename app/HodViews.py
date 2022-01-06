@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from slick_reporting.views import SlickReportView
 from slick_reporting.fields import SlickReportField
-from app.models import CustomUser,  Staffs, Departments, Intakes, Cons,Finance, Students, student_status, Reciept
+from app.models import CustomUser, Paymenttype, Programme,  Staffs, Departments, Intakes, Cons,Finance, Students, student_status, Reciept
 
 
 def admin_home(request):
@@ -235,11 +235,12 @@ def add_student(request):
     departments = Departments.objects.all()
     intakes = Intakes.objects.all()
     status = student_status.objects.all()
-
+    programme = Programme.objects.all()
     context = {
         "departments":departments,
         "intakes":intakes,
         "status":status,
+        "programme":programme,
         #"student": student,
         #"student_id": student_id
     }
@@ -258,14 +259,22 @@ def add_student_save(request):
         intake = request.POST.get('intake')
         department = request.POST.get('department')
         status = request.POST.get('status')
+        total_fee = request.POST.get('total_fee')
+        nin = request.POST.get('nin')
+        ip_id = request.POST.get('ip_id')
+        student_id = request.POST.get('student_id')
+        programme = request.POST.get('programme')
+
 
 
 
         user = Students.objects.create(username=username, email=email, 
-        last_name=last_name, first_name=first_name)
-        # user.department=Departments.objects.get(id=department) 
-        # user.intake=Intakes.objects.get(id=intake)
-        # user.status=student_status.objects.get(status_name=status)
+        last_name=last_name, first_name=first_name, student_id=student_id,
+        nin=nin, ip_id=ip_id, totalFee=total_fee)#, programme=programme
+        user.department=Departments.objects.get(id=department) 
+        user.intake=Intakes.objects.get(id=intake)
+        user.programme=Programme.objects.get(id=programme)
+        user.status=student_status.objects.get(status_name=status)
         user.address = address
         user.save()
         messages.success(request, "student Added Successfully!")
@@ -278,18 +287,20 @@ def manage_student(request):
     }
     return render(request, "hod_template/manage_student_template.html", context)
 
-def edit_student(request, student_id):
-    student = Students.objects.get(id=student_id)
+def edit_student(request, stu_id):
+    student = Students.objects.get(id=stu_id)
     departments = Departments.objects.all()
     intakes = Intakes.objects.all()
     status = student_status.objects.all()
+    programme = Programme.objects.all()
 
     context = {
         "departments":departments,
         "intakes":intakes,
         "status":status,
         "student": student,
-        "student_id": student_id
+        "programme": programme,
+        "stu_id": stu_id
     }
     return render(request, "hod_template/edit_student_template.html", context)
 
@@ -297,7 +308,7 @@ def edit_student_save(request):
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
     else:
-        student_id = request.POST.get('student_id')
+        stu_id = request.POST.get('stu_id')
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         username = request.POST.get('username')
@@ -307,9 +318,14 @@ def edit_student_save(request):
         intake = request.POST.get('intake')
         status = request.POST.get('status')
         gender = request.POST.get('gender')
+        total_fee = request.POST.get('total_fee')
+        nin = request.POST.get('nin')
+        ip_id = request.POST.get('ip_id')
+        student_id = request.POST.get('student_id')
+        programme = request.POST.get('programme')
 
 
-        user = Students.objects.get(id=student_id)
+        user = Students.objects.get(id=stu_id)
         user.first_name = first_name
         user.last_name = last_name
         user.email = email
@@ -318,19 +334,24 @@ def edit_student_save(request):
         
         # INSERTING into student Model
         print(department)
-        student_model = Students.objects.get(id=student_id)
+        student_model = Students.objects.get(id=stu_id)
         student_model.department=Departments.objects.get(id=department) 
+        student_model.programme=Programme.objects.get(id=programme) 
         student_model.intake=Intakes.objects.get(id=intake)
         student_model.status=student_status.objects.get(id=status)
-        student_model.gender=gender
+        # student_model.gender=gender
         student_model.address = address
+        student_model.nin = nin
+        student_model.ip_id = ip_id
+        student_model.totalFee = total_fee
+        student_model.student_id = student_id
         student_model.save()
 
         messages.success(request, "student Updated Successfully.")
-        return redirect('/edit_student/'+student_id)
+        return redirect('/edit_student/'+stu_id)
 
-def delete_student(request, student_id):
-    student = Students.objects.get(id=student_id)
+def delete_student(request, stu_id):
+    student = Students.objects.get(id=stu_id)
     try:
         student.delete()
         messages.success(request, "student Deleted Successfully.")
@@ -630,3 +651,132 @@ class SimpleListReport(SlickReportView):
 
     # fields on the report model ... surprise !
     columns = ['date', 'student_name', 'student_id', 'tution', 'acceptance', 'application', 'others','amount', 'total']
+
+# Programme
+
+
+def add_programme(request):
+    return render(request, "hod_template/add_programme_template.html")
+
+def add_programme_save(request):
+    if request.method != "POST":
+        messages.error(request, "Invalid Method!")
+        return redirect('add_programme')
+    else:
+        programme = request.POST.get('programme')
+        try:
+            programme_model = Programme(programme_name=programme)
+            programme_model.save()
+            messages.success(request, "Programme Added Successfully!")
+            return redirect('add_programme')
+        except:
+            messages.error(request, "Failed to Add Programme!")
+            return redirect('add_programme')
+
+def manage_programme(request):
+    programme = Programme.objects.all()
+    context = {
+        "programme": programme,
+    }
+    return render(request, 'hod_template/manage_programme_template.html', context)
+
+def edit_programme(request, programme_id):
+    programme = Programme.objects.get(id=programme_id)
+    context = {
+        "programme": programme,
+        "id": programme_id
+    }
+    return render(request, 'hod_template/edit_programme_template.html', context)
+
+def edit_programme_save(request):
+    if request.method != "POST":
+        HttpResponse("Invalid Method")
+    else:
+        programme_id = request.POST.get('programme_id')
+        programme_name = request.POST.get('programme')
+
+        try:
+            programme = Programme.objects.get(id=programme_id)
+            programme.programme_name = programme_name
+            programme.save()
+
+            messages.success(request, "department Updated Successfully.")
+            return redirect('/edit_programmme/'+programme_id)
+
+        except:
+            messages.error(request, "Failed to Update department.")
+            return redirect('/edit_programmme/'+programme_id)
+
+def delete_programme(request, programme_id):
+    programme = Programme.objects.get(id=programme_id)
+    try:
+        programme.delete()
+        messages.success(request, "Programme Deleted Successfully.")
+        return redirect('manage_programme')
+    except:
+        messages.error(request, "Failed to Delete Programme.")
+        return redirect('manage_programme')
+
+
+
+def add_ptype(request):
+    return render(request, "hod_template/add_ptype_template.html")
+
+def add_ptype_save(request):
+    if request.method != "POST":
+        messages.error(request, "Invalid Method!")
+        return redirect('add_ptype')
+    else:
+        ptype = request.POST.get('ptype')
+        try:
+            ptype_model = Paymenttype(ptype_name=ptype)
+            ptype_model.save()
+            messages.success(request, "Payment Type Added Successfully!")
+            return redirect('add_ptype')
+        except:
+            messages.error(request, "Failed to Add Payment Type!")
+            return redirect('add_ptype')
+
+def manage_ptype(request):
+    ptype = Paymenttype.objects.all()
+    context = {
+        "ptype": ptype
+    }
+    return render(request, 'hod_template/manage_ptype_template.html', context)
+
+def edit_ptype(request, ptype_id):
+    ptype = Paymenttype.objects.get(id=ptype_id)
+    context = {
+        "ptype": ptype,
+        "id": ptype_id
+    }
+    return render(request, 'hod_template/edit_ptype_template.html', context)
+
+def edit_ptype_save(request):
+    if request.method != "POST":
+        HttpResponse("Invalid Method")
+    else:
+        ptype_id = request.POST.get('ptype_id')
+        ptype_name = request.POST.get('ptype')
+
+        try:
+            ptype = Paymenttype.objects.get(id=ptype_id)
+            ptype.ptype_name = ptype_name
+            ptype.save()
+
+            messages.success(request, "Payment Type Updated Successfully.")
+            return redirect('manage_ptype')
+
+        except:
+            messages.error(request, "Failed to Update Payment Type.")
+            return redirect('/edit_ptype/'+ptype_id)
+
+def delete_ptype(request, ptype_id):
+    ptype = Paymenttype.objects.get(id=ptype_id)
+    try:
+        ptype.delete()
+        messages.success(request, "Payment Type Deleted Successfully.")
+        return redirect('manage_ptype')
+    except:
+        messages.error(request, "Failed to Delete Payment Type.")
+        return redirect('manage_ptype')

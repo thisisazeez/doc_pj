@@ -1,3 +1,4 @@
+from re import template
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib import messages
@@ -5,8 +6,10 @@ from django.core.files.storage import FileSystemStorage #To upload Profile Pictu
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
+from django.db.models import Q
+from django.views.generic import ListView
 import json
-from .models import CustomUser, Reciept,  Staffs, Departments, Intakes, Finance, Students, Invoice, InvoiceDetail
+from .models import CustomUser, Paymenttype, Reciept,  Staffs, Departments, Intakes, Finance, Students, Invoice, InvoiceDetail
 from .forms import  InvoiceForm
 import os
 from uuid import uuid4
@@ -214,8 +217,15 @@ def delete_invoice(request, pk):
 
 # Recipet O.G
 
-def add_reciept(request):
-    return render(request, "finance_template/add_reciept_template.html")
+def add_reciept(request, student_id):
+    student = Students.objects.get(id=student_id)
+    ptype = Paymenttype.objects.all()
+    context = {
+        "student": student,
+        "ptype": ptype,
+        "id": student_id,
+    }
+    return render(request, "finance_template/add_reciept_template.html", context)
 
 def add_reciept_save(request):
     if request.method != "POST":
@@ -273,6 +283,33 @@ def edit_reciept(request, reciept_id):
         "id": reciept_id,
     }
     return render(request, 'finance_template/edit_reciept_template.html', context)
+
+class SearchResultsView(ListView):
+    model = Students
+    template_name = 'finance_template/search_results.html'
+
+    def get_queryset(self):
+        query= self.request.GET.get('q')
+        object_list = Students.objects.filter(
+            Q(student_id__icontains=query) | Q(nin__icontains=query) | Q(ip_id__icontains=query)
+        )
+        return object_list
+
+def search(request):
+
+    results = []
+
+    if request.method == "GET":
+
+        query = request.GET.get('search')
+
+        if query == '':
+
+            query = 'None'
+
+        results = Students.objects.filter(Q(student_id__icontains=query) | Q(nin__icontains=query) | Q(ip_id__icontains=query) | Q(first_name__icontains=query) | Q(email__icontains=query))
+
+    return render(request, 'finance_template/search.html', {'query': query, 'results': results})
 
 def pdf_report_create(request, reciept_id):
     reciept = Reciept.objects.get(id=reciept_id)

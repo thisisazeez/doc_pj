@@ -36,9 +36,16 @@ urlpatterns = [
     path('add_student/', HodViews.add_student, name="add_student"),
     path('add_student_save/', HodViews.add_student_save, name="add_student_save"),
     path('manage_student/', HodViews.manage_student, name="manage_student"),
-    path('edit_student/<student_id>/', HodViews.edit_student, name="edit_student"),
+    path('edit_student/<stu_id>/', HodViews.edit_student, name="edit_student"),
     path('edit_student_save/', HodViews.edit_student_save, name="edit_student_save"),
-    path('delete_student/<student_id>/', HodViews.delete_student, name="delete_student"),
+    path('delete_student/<stu_id>/', HodViews.delete_student, name="delete_student"),
+
+    path('add_ptype/', HodViews.add_ptype, name="add_ptype"),
+    path('add_ptype_save/', HodViews.add_ptype_save, name="add_ptype_save"),
+    path('manage_ptype/', HodViews.manage_ptype, name="manage_ptype"),
+    path('edit_ptype/<ptype_id>/', HodViews.edit_ptype, name="edit_ptype"),
+    path('edit_ptype_save/', HodViews.edit_ptype_save, name="edit_ptype_save"),
+    path('delete_ptype/<ptype_id>/', HodViews.delete_ptype, name="delete_ptype"),
 
 
     path('add_department/', HodViews.add_department, name="add_department"),
@@ -47,6 +54,14 @@ urlpatterns = [
     path('edit_department/<department_id>/', HodViews.edit_department, name="edit_department"),
     path('edit_department_save/', HodViews.edit_department_save, name="edit_department_save"),
     path('delete_department/<department_id>/', HodViews.delete_department, name="delete_department"),
+
+    path('add_programme/', HodViews.add_programme, name="add_programme"),
+    path('add_programme_save/', HodViews.add_programme_save, name="add_programme_save"),
+    path('manage_programme/', HodViews.manage_programme, name="manage_programme"),
+    path('edit_programme/<programme_id>/', HodViews.edit_programme, name="edit_programme"),
+    path('edit_programme_save/', HodViews.edit_programme_save, name="edit_programme_save"),
+    path('delete_programme/<programme_id>/', HodViews.delete_programme, name="delete_programme"),
+
 
     path('manage_sop_admin/', HodViews.manage_sop_admin, name="manage_sop_admin"),
     path('edit_sop_admin/<sop_id>/', HodViews.edit_sop_admin, name="edit_sop_admin"),
@@ -87,6 +102,8 @@ urlpatterns = [
     
     
     # URSL for Finance
+    path('search_/', FinanceViews.SearchResultsView.as_view(), name="finance_search_result"),
+    path('search_stu/', FinanceViews.search, name="finance_search"),
     path('finance_home/', FinanceViews.finance_home, name="finance_home"),
     path('finance_profile/', FinanceViews.finance_profile, name="finance_profile"),
     path('payslip/<int:pk>/', FinanceViews.payslip, name='dashboard_payslip'),
@@ -96,7 +113,7 @@ urlpatterns = [
     path('delete_invoice/<int:pk>/', FinanceViews.delete_invoice, name='delete_invoice'),
     path('finance_dashboard/venue_pdf/', FinanceViews.venue_pdf, name='venue_pdf'),
     path('view_invoice_detail/<int:pk>/', FinanceViews.view_invoice_detail, name='view_invoice_detail'),
-    path('add_reciept/', FinanceViews.add_reciept, name="add_reciept"),
+    path('add_reciept/<student_id>/', FinanceViews.add_reciept, name="add_reciept"),
     path('add_reciept_save/', FinanceViews.add_reciept_save, name="add_reciept_save"),
     path('manage_reciept/', FinanceViews.manage_reciept, name="manage_reciept"),
     path('edit_reciept/<reciept_id>/', FinanceViews.edit_reciept, name="edit_reciept"),

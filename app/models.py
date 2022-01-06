@@ -59,6 +59,20 @@ class Departments(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     objects = models.Manager()
 
+class Programme(models.Model):
+    id = models.AutoField(primary_key=True)
+    programme_name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = models.Manager()
+
+
+class Paymenttype(models.Model):
+    id = models.AutoField(primary_key=True)
+    ptype_name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = models.Manager()
 
 
 # STUDENT_STATUS_CHOICES = (
@@ -78,10 +92,15 @@ class Students(models.Model):
     id = models.AutoField(primary_key=True)
     admin = models.OneToOneField(CustomUser, on_delete = models.CASCADE, blank=True, null=True)
     gender = models.CharField(max_length=50)
+    programme = models.ForeignKey(Programme, on_delete=models.CASCADE, blank=True, null=True)
     intake = models.ForeignKey(Intakes, on_delete=models.CASCADE,blank=True, null=True)
     department = models.ForeignKey(Departments,on_delete=models.CASCADE, blank=True, null=True)
     status = models.ForeignKey(student_status,on_delete=models.CASCADE, blank=True, null=True)
     address = models.TextField()
+    nin = models.CharField(max_length=400, blank=True, null=True)
+    ip_id = models.CharField(max_length=400, blank=True, null=True)
+    totalFee = models.CharField(max_length=255, blank=True, null=True)
+    student_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
     username = models.CharField(max_length=255, blank=True, null=True)
     email = models.CharField(max_length=300, blank=True, null=True)
     last_name = models.CharField(max_length=300, blank=True, null=True)

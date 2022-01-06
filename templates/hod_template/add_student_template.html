@@ -49,17 +49,17 @@
 
                             <div class="form-group">
                                 <label>Student ID</label>
-                                <input type="id" class="form-control" name="id" placeholder="LUC/student/0090">
+                                <input type="id" class="form-control" name="student_id" placeholder="LUC/student/0090">
                             </div>
 
                             <div class="form-group">
                                 <label>Nin ID</label>
-                                <input type="id" class="form-control" name="id" placeholder="2829292282873645454">
+                                <input type="id" class="form-control" name="nin" placeholder="2829292282873645454">
                             </div>
 
                             <div class="form-group">
                                 <label>International Passport ID</label>
-                                <input type="id" class="form-control" name="id" placeholder="87650090">
+                                <input type="id" class="form-control" name="ip_id" placeholder="87650090">
                             </div>
 
                             <div class="form-group">
@@ -76,6 +76,12 @@
                             <div class="form-group">
                                 <label>Address</label>
                                 <textarea class="form-control" name="address" placeholder="Address"></textarea>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>Total Fee</label>
+                                <textarea class="form-control" name="total_fee" placeholder="Total Fee To Be Paid"></textarea>
                             </div>
 
 
@@ -102,6 +108,15 @@
                                 <select class="form-control" name="status">
                                     {% for status in status %}
                                         <option value="{{status.id}}">{{ status.status_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Programme:</label>
+                                <select class="form-control" name="programme">
+                                    {% for programme in programme %}
+                                        <option value="{{programme.id}}">{{ programme.programme_name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>

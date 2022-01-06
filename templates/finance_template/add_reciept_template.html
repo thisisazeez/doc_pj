@@ -53,27 +53,23 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Student Name </label>
-                                <input type="text" class="form-control" name="stu_name" placeholder="Enter Student Name">
+                                <input type="text" class="form-control" name="stu_name" value="{{ student.first_name }} {{ student.last_name }}">
                             </div>
                             <div class="form-group">
                                 <label>Student ID </label>
-                                <input type="text" class="form-control" name="stu_id" placeholder="Enter Student ID">
+                                <input type="text" class="form-control" name="stu_id" value="{{ student.student_id }}">
                             </div>
                             <div class="form-group">
-                                <label>Tution</label>
-                                <input type="checkbox" class="form-control" name="tution">
+                                <label>NIN </label>
+                                <input type="text" class="form-control" name="stu_nin" value="{{ student.nin }}">
                             </div>
                             <div class="form-group">
-                                <label>Acceptance</label>
-                                <input type="checkbox" class="form-control" name="acceptance">
-                            </div>
-                            <div class="form-group">
-                                <label>Application</label>
-                                <input type="checkbox" class="form-control" name="application">
-                            </div>
-                            <div class="form-group">
-                                <label>Others</label>
-                                <input type="checkbox" class="form-control" name="others">
+                                <label>Payment Type:</label>
+                                <select class="form-control" name="intake">
+                                    {% for ptype in ptype %}
+                                        <option>{{ ptype.ptype_name }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label>Amount </label>
@@ -81,7 +77,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Total </label>
-                                <input type="text" class="form-control" name="total" placeholder="Enter Total">
+                                <input type="text" class="form-control" name="total" value="{{ student.total }}">
                             </div>
                             <div class="form-group">
                                 <label>Notes </label>

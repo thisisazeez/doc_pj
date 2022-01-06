@@ -11,8 +11,9 @@
 <section class="content">
         <div class="container-fluid">
 
-            <a class="btn btn-primary" href="{% url 'add_reciept' %}" role="button">+ Add Reciept</a> <br/>&nbsp;
-
+            <form action="{% url 'finance_search_result' %}" method="get">
+                <input type="text" name="q" placeholder="Search....">
+            </form>
             {% if messages %}
                                 <div class="form-group">
                                 <div class="col-12">
