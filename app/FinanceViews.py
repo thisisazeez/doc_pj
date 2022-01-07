@@ -235,33 +235,35 @@ def add_reciept_save(request):
         stu_name = request.POST.get('stu_name')
         stu_id = request.POST.get('stu_id')
         student_id = request.POST.get('student_id')
-        tution = request.POST.get('tution')
-        if tution == 'on':
-            tution = True
-        else:
-            tution = False
-        acceptance = request.POST.get('acceptance')
-        if acceptance == 'on':
-            acceptance = True
-        else:
-            acceptance = False
-        application = request.POST.get('application')
-        if application == 'on':
-            application = True
-        else:
-            application = False
-        others = request.POST.get('others')
-        if others == 'on':
-            others = True
-        else:
-            others = False
+        ptype = request.POST.get('ptype')
+        # tution = request.POST.get('tution')
+        # if tution == 'on':
+        #     tution = True
+        # else:
+        #     tution = False
+        # acceptance = request.POST.get('acceptance')
+        # if acceptance == 'on':
+        #     acceptance = True
+        # else:
+        #     acceptance = False
+        # application = request.POST.get('application')
+        # if application == 'on':
+        #     application = True
+        # else:
+        #     application = False
+        # others = request.POST.get('others')
+        # if others == 'on':
+        #     others = True
+        # else:
+        #     others = False
         amount = request.POST.get('amount')
         total = request.POST.get('total')
         notes = request.POST.get('notes')
 
         try:
-            reciept_model = Reciept(student_name=stu_name, student_id=stu_id,tution=tution, acceptance=acceptance,
-            application=application, amount=amount, total=total, notes=notes)
+            reciept_model = Reciept(student_name=stu_name, student_id=stu_id,
+            amount=amount, total=total, notes=notes)
+            reciept_model.ptype=Paymenttype.objects.get(id=ptype)
             reciept_model.save()
             messages.success(request, "Reciept Added Successfully!")
             return redirect('/add_reciept/'+student_id)

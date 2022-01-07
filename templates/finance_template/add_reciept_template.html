@@ -66,9 +66,9 @@
                             </div>
                             <div class="form-group">
                                 <label>Payment Type:</label>
-                                <select class="form-control" name="intake">
+                                <select class="form-control" name="ptype">
                                     {% for ptype in ptype %}
-                                        <option>{{ ptype.ptype_name }}</option>
+                                        <option value="{{ ptype.id }}">{{ ptype.ptype_name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>

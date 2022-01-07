@@ -140,6 +140,7 @@ class Reciept(models.Model):
     acceptance = models.BooleanField(default=False)
     application = models.BooleanField(default=False)
     others = models.BooleanField(default=False)
+    ptype = models.CharField(max_length=255, blank=True, null=True)
     # type = models.CharField(choices=TYPE, default='cash', max_length=100)
     amount = models.CharField(blank=True, null=True, max_length=100)
     # paymentTerms = models.CharField(choices=TERMS, default='14 days', max_length=100)
