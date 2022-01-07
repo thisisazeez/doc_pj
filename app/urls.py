@@ -118,6 +118,7 @@ urlpatterns = [
     path('manage_reciept/', FinanceViews.manage_reciept, name="manage_reciept"),
     path('edit_reciept/<reciept_id>/', FinanceViews.edit_reciept, name="edit_reciept"),
     path('create_pdf/<reciept_id>/', FinanceViews.pdf_report_create, name="pdf_report_create"),
+    path('_pdf/<reciept_id>/', FinanceViews.pdf__create, name="pdf__create"),
     path('edit_reciept_save/', FinanceViews.edit_reciept_save, name="edit_reciept_save"),
     path('delete_reciept/<reciept_id>/', FinanceViews.delete_reciept, name="delete_reciept"),
    

@@ -78,7 +78,7 @@
                                 <td>{{ rec.total }}</td>
                                 <td>
                                     {% comment %} <a href="{% url 'edit_reciept' rec.id %}" class="btn btn-success">Edit</a>  {% endcomment %}
-                                    <a href="{% url 'pdf_report_create' rec.id %}" class="btn btn-warning">Print</a>
+                                    <a href="{% url 'pdf__create' rec.id %}" class="btn btn-warning">Print</a>
                                     <a href="{% url 'delete_reciept' rec.id %}" class="btn btn-danger">Delete</a>
                                 </td>
                                 </tr>

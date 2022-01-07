@@ -336,6 +336,14 @@ def pdf_report_create(request, reciept_id):
     if pisa_status.err:
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
+# Try All
+def pdf__create(request, reciept_id):
+    reciept = Reciept.objects.get(id=reciept_id)
+    context = {
+        "reciept": reciept,
+        "id": reciept_id,
+    }
+    return render(request, 'finance_template/reprint.html')
 
 
 def edit_reciept_save(request):
