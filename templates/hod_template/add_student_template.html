@@ -89,7 +89,7 @@
                                 <label>Intake:</label>
                                 <select class="form-control" name="intake">
                                     {% for intake in intakes %}
-                                        <option>{{ intake.intake_name }}</option>
+                                        <option value="{{ intake.id }}">{{ intake.intake_name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>

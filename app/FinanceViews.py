@@ -257,12 +257,16 @@ def add_reciept_save(request):
         # else:
         #     others = False
         amount = request.POST.get('amount')
+        balance = request.POST.get('balance')
+        stu_nin = request.POST.get('stu_nin')
+        stu_programme = request.POST.get('stu_programme')
         total = request.POST.get('total')
         notes = request.POST.get('notes')
 
         try:
             reciept_model = Reciept(student_name=stu_name, student_id=stu_id,
-            amount=amount, total=total, notes=notes)
+            amount=amount, total=total, notes=notes, balance=balance,
+            student_nin=stu_nin, stu_programme=stu_programme)
             reciept_model.ptype=Paymenttype.objects.get(id=ptype)
             reciept_model.save()
             messages.success(request, "Reciept Added Successfully!")

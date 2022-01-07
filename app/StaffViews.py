@@ -33,10 +33,11 @@ def add_sop_save(request):
         i_price_4 = request.POST.get('i_price_4')
         item_5 = request.POST.get('item_5')
         i_price_5 = request.POST.get('i_price_5')
+        comment = request.POST.get('comment')
 
         try:
             sop_model = Cons(one=item_1, amountOne=i_price_1, two=item_2, amountTwo=i_price_2,
-            three=item_3, amountThree=i_price_3, four=item_4, amountFour=i_price_4, five=item_5, amountFive=i_price_5)
+            three=item_3, comment=comment,amountThree=i_price_3, four=item_4, amountFour=i_price_4, five=item_5, amountFive=i_price_5)
             sop_model.save()
             messages.success(request, "SOP Added Successfully!")
             return redirect('add_sop')
@@ -74,6 +75,7 @@ def edit_sop_save(request):
         i_price_4 = request.POST.get('i_price_4')
         item_5 = request.POST.get('item_5')
         i_price_5 = request.POST.get('i_price_5')
+        comment = request.POST.get('comment')
         try:
             sop = Cons.objects.get(id=sop_id)
             sop.one = item_1
@@ -86,6 +88,7 @@ def edit_sop_save(request):
             sop.amountFour = i_price_4
             sop.five = item_5
             sop.amountFive = i_price_5
+            sop.comment = comment
             sop.save()
 
             messages.success(request, "SOP Updated Successfully.")

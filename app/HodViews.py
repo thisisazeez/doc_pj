@@ -274,7 +274,7 @@ def add_student_save(request):
         user.department=Departments.objects.get(id=department) 
         user.intake=Intakes.objects.get(id=intake)
         user.programme=Programme.objects.get(id=programme)
-        user.status=student_status.objects.get(status_name=status)
+        user.status=student_status.objects.get(id=status)
         user.address = address
         user.save()
         messages.success(request, "student Added Successfully!")
@@ -602,6 +602,7 @@ def edit_sop_admin_save(request):
         item_4 = request.POST.get('item_4')
         i_price_4 = request.POST.get('i_price_4')
         item_5 = request.POST.get('item_5')
+        comment = request.POST.get('comment')
         i_price_5 = request.POST.get('i_price_5')
         is_approved= request.POST.get('is_approved')
         if is_approved == 'on':
@@ -620,6 +621,7 @@ def edit_sop_admin_save(request):
         sop.amountFour = i_price_4
         sop.five = item_5
         sop.amountFive = i_price_5
+        sop.comment = comment
         sop.is_approved = is_approved
         sop.save()
 
