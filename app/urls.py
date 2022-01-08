@@ -18,6 +18,7 @@ urlpatterns = [
     path('admin_profile_update/', HodViews.admin_profile_update, name="admin_profile_update"),
     path('report/', HodViews.SimpleListReport.as_view(), name="report_gen"),
       # Admin Staff
+    path('report_engine/', HodViews.MyReport.as_view(), name="report_engine"),
     path('add_staff/', HodViews.add_staff, name="add_staff"),
     path('add_staff_save/', HodViews.add_staff_save, name="add_staff_save"),
     path('manage_staff/', HodViews.manage_staff, name="manage_staff"),

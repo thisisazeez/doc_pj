@@ -5,6 +5,8 @@ from django.core.files.storage import FileSystemStorage #To upload Profile Pictu
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 import json
+
+# from reportengine import ModelReport
 from slick_reporting.views import SlickReportView
 from slick_reporting.fields import SlickReportField
 from app.models import CustomUser, Paymenttype, Programme,  Staffs, Departments, Intakes, Cons,Finance, Students, student_status, Reciept
@@ -656,6 +658,8 @@ class SimpleListReport(SlickReportView):
 
 # Programme
 
+# class MyReport(ModelReport):
+#     model = Reciept
 
 def add_programme(request):
     return render(request, "hod_template/add_programme_template.html")
