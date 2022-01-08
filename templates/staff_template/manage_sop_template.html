@@ -76,7 +76,7 @@
                                 <td>{{ sop.date }}</td>
                                 <td>{{ sop.is_approved }}</td>
                                 <td>
-                                    {% comment %} <a href="{% url 'edit_department' department.id %}" class="btn btn-success">Edit</a>  {% endcomment %}
+                                    <a href="{% url 'edit_sop' sop.id %}" class="btn btn-success">Edit</a> 
                                     <a href="{% url 'delete_sop' sop.id %}" class="btn btn-danger">Delete</a>
                                 </td>
                                 </tr>

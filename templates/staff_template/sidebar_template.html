@@ -48,60 +48,6 @@
                         </p>
                     </a>
                 </li>
-
-                <li class="nav-item">
-                    {% url 'solution' as solution %}
-                    {% comment %} <a href="{{ solution }}" class="nav-link {% if request.path == solution %} active {% endif %}"> {% endcomment %}
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            View Student Solution {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
-                        </p>
-                    </a>
-                </li>
-
-
-                <li class="nav-item">
-                    {% url 'detail_t' as detail_t %}
-                    {% comment %} <a href="{{ detail_t }}" class="nav-link {% if request.path == detail_t %} active {% endif %}"> {% endcomment %}
-                        <i class="nav-icon fas fa-calendar-plus"></i>
-                        <p>
-                            View Detail {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
-                        </p>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    {% url 'staff_take_attendance' as staff_take_attendance %}
-                    {% comment %} <a href="{{ staff_take_attendance }}" class="nav-link {% if request.path == staff_take_attendance %} active {% endif %}"> {% endcomment %}
-                        <i class="nav-icon fas fa-calendar-plus"></i>
-                        <p>
-                            Take Attendance {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
-                        </p>
-                    </a>
-                </li>
-
-                <!-- <li class="nav-item">
-                    {% url 'staff_update_attendance' as staff_update_attendance %}
-                    <a href="{{ staff_update_attendance }}" class="nav-link {% if request.path == staff_update_attendance %} active {% endif %}">
-                        <i class="nav-icon fas fa-calendar-alt"></i>
-                        <p>
-                            View Update Attendance {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
-                        </p>
-                    </a>
-                </li> -->
-
-                <!-- <li class="nav-item">
-              {% url 'staff_add_result' as staff_add_result %}
-              <a href="{{ staff_add_result }}" class="nav-link {% if request.path == staff_add_result %} active {% endif %}">
-                <i class="nav-icon fas fa-tasks"></i>
-                <p>
-                  Add Result
-                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
-                </p>
-              </a>
-            </li> -->
-
-
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

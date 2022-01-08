@@ -347,7 +347,7 @@ def pdf__create(request, reciept_id):
         "reciept": reciept,
         "id": reciept_id,
     }
-    return render(request, 'finance_template/reprint.html')
+    return render(request, 'finance_template/reprint.html', context)
 
 
 def edit_reciept_save(request):
