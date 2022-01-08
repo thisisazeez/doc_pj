@@ -75,6 +75,14 @@ class Paymenttype(models.Model):
     objects = models.Manager()
 
 
+
+class feeType(models.Model):
+    id = models.AutoField(primary_key=True)
+    fee_name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = models.Manager()
+
 # STUDENT_STATUS_CHOICES = (
 #     ("applicant", "Applicant"),
 #     ("current", "Current"),
@@ -97,6 +105,12 @@ class Students(models.Model):
     department = models.ForeignKey(Departments,on_delete=models.CASCADE, blank=True, null=True)
     status = models.ForeignKey(student_status,on_delete=models.CASCADE, blank=True, null=True)
     address = models.TextField()
+    gender = models.CharField(max_length=255, blank=True, null=True)
+    state_of_origin = models.CharField(max_length=255, blank=True, null=True)
+    country = models.CharField(max_length=255, blank=True, null=True)
+    nxt_of_kin = models.CharField(max_length=255, blank=True, null=True)
+    nxt_kin_num = models.CharField(max_length=255, blank=True, null=True)
+    phone_num = models.CharField(max_length=255, blank=True, null=True)
     nin = models.CharField(max_length=400, blank=True, null=True)
     ip_id = models.CharField(max_length=400, blank=True, null=True)
     totalFee = models.CharField(max_length=255, blank=True, null=True)

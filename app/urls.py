@@ -18,7 +18,7 @@ urlpatterns = [
     path('admin_profile_update/', HodViews.admin_profile_update, name="admin_profile_update"),
     path('report/', HodViews.SimpleListReport.as_view(), name="report_gen"),
       # Admin Staff
-    path('report_engine/', HodViews.MyReport.as_view(), name="report_engine"),
+    # path('report_engine/', HodViews.MyReport.as_view(), name="report_engine"),
     path('add_staff/', HodViews.add_staff, name="add_staff"),
     path('add_staff_save/', HodViews.add_staff_save, name="add_staff_save"),
     path('manage_staff/', HodViews.manage_staff, name="manage_staff"),
@@ -55,6 +55,14 @@ urlpatterns = [
     path('edit_department/<department_id>/', HodViews.edit_department, name="edit_department"),
     path('edit_department_save/', HodViews.edit_department_save, name="edit_department_save"),
     path('delete_department/<department_id>/', HodViews.delete_department, name="delete_department"),
+
+
+    path('add_fee_type/', HodViews.add_fee_type, name="add_fee_type"),
+    path('add_fee_type_save/', HodViews.add_fee_type_save, name="add_fee_type_save"),
+    path('manage_fee_type/', HodViews.manage_fee_type, name="manage_fee_type"),
+    path('edit_fee_type/<fee_id>/', HodViews.edit_fee_type, name="edit_fee_type"),
+    path('edit_fee_type_save/', HodViews.edit_fee_type_save, name="edit_fee_type_save"),
+    path('delete_fee_type/<fee_id>/', HodViews.delete_fee_type, name="delete_fee_type"),
 
     path('add_programme/', HodViews.add_programme, name="add_programme"),
     path('add_programme_save/', HodViews.add_programme_save, name="add_programme_save"),

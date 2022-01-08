@@ -9,7 +9,7 @@ import json
 # from reportengine import ModelReport
 from slick_reporting.views import SlickReportView
 from slick_reporting.fields import SlickReportField
-from app.models import CustomUser, Paymenttype, Programme,  Staffs, Departments, Intakes, Cons,Finance, Students, student_status, Reciept
+from app.models import CustomUser, Paymenttype, Programme,  Staffs, Departments, Intakes, Cons,Finance, Students, feeType, student_status, Reciept
 
 
 def admin_home(request):
@@ -259,6 +259,11 @@ def add_student_save(request):
         email = request.POST.get('email')
         address = request.POST.get('address')
         intake = request.POST.get('intake')
+        gender = request.POST.get('gender')
+        country = request.POST.get('country')
+        sto = request.POST.get('sto')
+        nxt_of_kin = request.POST.get('nxt_of_kin')
+        nxt_of_kin_num = request.POST.get('nxt_of_kin_num')
         department = request.POST.get('department')
         status = request.POST.get('status')
         total_fee = request.POST.get('total_fee')
@@ -271,8 +276,11 @@ def add_student_save(request):
 
 
         user = Students.objects.create(username=username, email=email, 
-        last_name=last_name, first_name=first_name, student_id=student_id,
-        nin=nin, ip_id=ip_id, totalFee=total_fee)#, programme=programme
+        last_name=last_name,
+         first_name=first_name, student_id=student_id,
+        nin=nin, ip_id=ip_id, totalFee=total_fee,
+        state_of_origin=sto, nxt_of_kin=nxt_of_kin, nxt_kin_num=nxt_of_kin_num,
+        country=country, gender=gender)#, programme=programme
         user.department=Departments.objects.get(id=department) 
         user.intake=Intakes.objects.get(id=intake)
         user.programme=Programme.objects.get(id=programme)
@@ -424,6 +432,72 @@ def delete_department(request, department_id):
     except:
         messages.error(request, "Failed to Delete department.")
         return redirect('manage_department')
+
+
+#feetype
+
+def add_fee_type(request):
+    return render(request, "hod_template/add_fee_type_template.html")
+
+def add_fee_type_save(request):
+    if request.method != "POST":
+        messages.error(request, "Invalid Method!")
+        return redirect('add_fee_type')
+    else:
+        fee_type = request.POST.get('fee_type')
+        try:
+            fee_type_model = feeType(fee_name=fee_type)
+            fee_type_model.save()
+            messages.success(request, "Fee Type Added Successfully!")
+            return redirect('add_fee_type')
+        except:
+            messages.error(request, "Failed to Add Fee Type!")
+            return redirect('add_fee_type')
+
+def manage_fee_type(request):
+    fee = feeType.objects.all()
+    context = {
+        "fee": fee
+    }
+    return render(request, 'hod_template/manage_fee_type_template.html', context)
+
+def edit_fee_type(request, fee_id):
+    fee = feeType.objects.get(id=fee_id)
+    context = {
+        "fee": fee,
+        "id": fee_id
+    }
+    return render(request, 'hod_template/edit_fee_type_template.html', context)
+
+def edit_fee_type_save(request):
+    if request.method != "POST":
+        HttpResponse("Invalid Method")
+    else:
+        fee_id = request.POST.get('fee_id')
+        fee_name = request.POST.get('fee_name')
+
+        try:
+            fee = feeType.objects.get(id=fee_id)
+            fee.fee_name = fee_name
+            fee.save()
+
+            messages.success(request, "Fee Type Updated Successfully.")
+            return redirect('/edit_fee_type/'+fee_id)
+
+        except:
+            messages.error(request, "Failed to Update department.")
+            return redirect('/edit_fee_type/'+fee_id)
+
+def delete_fee_type(request, fee_id):
+    fee = feeType.objects.get(id=fee_id)
+    try:
+        fee.delete()
+        messages.success(request, "Fee Type Deleted Successfully.")
+        return redirect('manage_fee_type')
+    except:
+        messages.error(request, "Failed to Delete department.")
+        return redirect('manage_fee_type')
+
 
 # Status
 

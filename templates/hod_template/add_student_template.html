@@ -38,15 +38,14 @@
 
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Email address</label>
-                                <input type="email" class="form-control" name="email" placeholder="Enter email" id="id_email">
+                                <label>First Name</label>
+                                <input type="text" class="form-control" name="first_name" placeholder="First Name">
                             </div>
 
                             <div class="form-group">
-                                <label>Username</label>
-                                <input type="text" class="form-control" name="username" placeholder="Username" id="id_username">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control" name="last_name" placeholder="Last Name">
                             </div>
-
                             <div class="form-group">
                                 <label>Student ID</label>
                                 <input type="id" class="form-control" name="student_id" placeholder="LUC/student/0090">
@@ -63,13 +62,53 @@
                             </div>
 
                             <div class="form-group">
-                                <label>First Name</label>
-                                <input type="text" class="form-control" name="first_name" placeholder="First Name">
+                                <label>Phone Number</label>
+                                <input type="text" class="form-control" name="phone_num" placeholder="Phone Number">
                             </div>
 
                             <div class="form-group">
-                                <label>Last Name</label>
-                                <input type="text" class="form-control" name="last_name" placeholder="Last Name">
+                                <label>Status:</label>
+                                <select class="form-control" name="status">
+                                    {% for status in status %}
+                                        <option value="{{status.id}}">{{ status.status_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Programme:</label>
+                                <select class="form-control" name="programme">
+                                    {% for programme in programme %}
+                                        <option value="{{programme.id}}">{{ programme.programme_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email address</label>
+                                <input type="email" class="form-control" name="email" placeholder="Enter email" id="id_email">
+                            </div>
+
+                            <div class="form-group">
+                                <label>State of Origin</label>
+                                <input type="text" class="form-control" name="sto" placeholder="State Of Origin">
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>Country</label>
+                                <input type="text" class="form-control" name="country" placeholder="Country">
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <label>Gender:</label>
+                                <select class="form-control" name="gender">
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                        <option>Rather Not Say</option>
+                                </select>
                             </div>
 
 
@@ -104,23 +143,14 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Status:</label>
-                                <select class="form-control" name="status">
-                                    {% for status in status %}
-                                        <option value="{{status.id}}">{{ status.status_name }}</option>
-                                    {% endfor %}
-                                </select>
+                                <label>Next Of Kin</label>
+                                <input type="text" class="form-control" name="nxt_of_kin" placeholder="Nxt_Of_kin">
                             </div>
 
                             <div class="form-group">
-                                <label>Programme:</label>
-                                <select class="form-control" name="programme">
-                                    {% for programme in programme %}
-                                        <option value="{{programme.id}}">{{ programme.programme_name }}</option>
-                                    {% endfor %}
-                                </select>
+                                <label>Next Of Kin Phone No.</label>
+                                <input type="text" class="form-control" name="nxt_of_kin_num" placeholder="Nxt_Of_kin">
                             </div>
-
                         </div>
                         <!-- /.card-body -->
 
