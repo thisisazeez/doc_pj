@@ -11,7 +11,7 @@
 <section class="content">
         <div class="container-fluid">
 
-            <a class="btn btn-primary" href="{% url 'add_department' %}" role="button">+ Add Department</a> <br/>&nbsp;
+            <a class="btn btn-primary" href="{% url 'add_department_st' %}" role="button">+ Add Department</a> <br/>&nbsp;
 
             {% if messages %}
                                 <div class="form-group">
@@ -74,8 +74,8 @@
                                 <td>{{ department.created_at }}</td>
                                 <td>{{ department.updated_at }}</td>
                                 <td>
-                                    <a href="{% url 'edit_department' department.id %}" class="btn btn-success">Edit</a> 
-                                    <a href="{% url 'delete_department' department.id %}" class="btn btn-danger">Delete</a>
+                                    <a href="{% url 'edit_department_st' department.id %}" class="btn btn-success">Edit</a> 
+                                    <a href="{% url 'delete_department_st' department.id %}" class="btn btn-danger">Delete</a>
                                 </td>
                                 </tr>
                                 {% endfor %}
