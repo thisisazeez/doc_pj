@@ -1,10 +1,78 @@
-<h1>Search Results </h1>
+{% extends 'finance_template/base_template.html' %}
 
-<ul>
+{% block page_title %}
+Search Results
+{% endblock page_title %}
 
-    {% for s in object_list %}
-    <li>
-        {{ s.username }},{{ s.student_id }},{{ s.programme.programme_name }}, {{ s.total }}, {{ s.nin }}, {{ s.ip_id }}<a href="{% url 'add_reciept' s.id %}">Issue Reciept</a>
-    </li>
-    {% endfor %}
-</ul>
+{% block main_content %}
+
+{% load static %}
+
+<section class="content">
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Issue Details</h3>
+
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="table_search" class="form-control float-right"
+                                    placeholder="Search">
+
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Student Name</th>
+                                    <th>Student Id</th>
+                                    <th>"" NIN</th>
+                                    <th>"" Int'l Pass.</th>
+                                    <th>Programme</th>
+                                    <th>Total</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for s in object_list %}
+                                <tr>
+                                    <td>{{ s.id }}</td>
+                                    <td>{{ s.first_name }} {{ s.last_name }}</td>
+                                    <td>{{ s.student_id }}</td>
+                                    <td>{{ s.nin }}</td>
+                                    <td>{{ s.ip_id }}</td>
+                                    <td>{{ s.programme.programme_name }}</td>
+                                    <td>{{ s.totalFee }}</td>
+                                    <td>
+                                        {% comment %} <a href="{% url 'edit_reciept' rec.id %}"
+                                            class="btn btn-success">Edit</a> {% endcomment %}
+                                        <a href="{% url 'add_reciept' s.id %}" class="btn btn-success">Add</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+
+            </div>
+        </div>
+
+    </div><!-- /.container-fluid -->
+</section>
+
+{% endblock main_content %}

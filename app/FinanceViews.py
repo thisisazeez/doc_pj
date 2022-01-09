@@ -9,7 +9,7 @@ from django.core import serializers
 from django.db.models import Q
 from django.views.generic import ListView
 import json
-from .models import CustomUser, Paymenttype, Reciept,  Staffs, Departments, Intakes, Finance, Students, Invoice, InvoiceDetail
+from .models import CustomUser, Paymenttype, Reciept,  Staffs, Departments, Intakes, Finance, Students, Invoice, InvoiceDetail, feeType
 from .forms import  InvoiceForm
 import os
 from uuid import uuid4
@@ -220,9 +220,11 @@ def delete_invoice(request, pk):
 def add_reciept(request, student_id):
     student = Students.objects.get(id=student_id)
     ptype = Paymenttype.objects.all()
+    ftype = feeType.objects.all()
     context = {
         "student": student,
         "ptype": ptype,
+        "ftype": ftype,
         "id": student_id,
     }
     return render(request, "finance_template/add_reciept_template.html", context)
@@ -259,6 +261,7 @@ def add_reciept_save(request):
         amount = request.POST.get('amount')
         balance = request.POST.get('balance')
         stu_nin = request.POST.get('stu_nin')
+        ftype = request.POST.get('ftype')
         stu_programme = request.POST.get('stu_programme')
         total = request.POST.get('total')
         notes = request.POST.get('notes')
@@ -268,6 +271,7 @@ def add_reciept_save(request):
             amount=amount, total=total, notes=notes, balance=balance,
             student_nin=stu_nin, stu_programme=stu_programme)
             reciept_model.ptype=Paymenttype.objects.get(id=ptype)
+            reciept_model.ftype=feeType.objects.get(id=ftype)
             reciept_model.save()
             messages.success(request, "Reciept Added Successfully!")
             return redirect('/add_reciept/'+student_id)

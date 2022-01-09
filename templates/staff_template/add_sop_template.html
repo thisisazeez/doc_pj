@@ -1,7 +1,7 @@
 {% extends 'staff_template/base_template.html' %}
 
 {% block page_title %}
-    Add Department
+    Add SOP
 {% endblock page_title %}
 
 {% block main_content %}
@@ -53,43 +53,52 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Item 1 Name </label>
-                                <input type="text" class="form-control" name="item_1" placeholder="Enter Department">
+                                <input type="text" class="form-control" name="item_1" placeholder="Enter ">
                             </div>
                             <div class="form-group">
                                 <label>Item 1 Price </label>
-                                <input type="text" class="form-control" name="i_price_1" placeholder="Enter Department">
+                                <input type="text" class="form-control" name="i_price_1" placeholder="Enter ">
                             </div>
                             <div class="form-group">
                                 <label>Item 2 Name </label>
-                                <input type="text" class="form-control" name="item_2" placeholder="Enter Department">
+                                <input type="text" class="form-control" name="item_2" placeholder="Enter ">
                             </div>
                             <div class="form-group">
                                 <label>Item 2 Price </label>
-                                <input type="text" class="form-control" name="i_price_2" placeholder="Enter Department">
+                                <input type="text" class="form-control" name="i_price_2" placeholder="Enter ">
                             </div>
                             <div class="form-group">
                                 <label>Item 3 Name </label>
-                                <input type="text" class="form-control" name="item_3" placeholder="Enter Department">
+                                <input type="text" class="form-control" name="item_3" placeholder="Enter ">
                             </div>
                             <div class="form-group">
                                 <label>Item 3 Price </label>
-                                <input type="text" class="form-control" name="i_price_3" placeholder="Enter Department">
+                                <input type="text" class="form-control" name="i_price_3" placeholder="Enter ">
                             </div>
                             <div class="form-group">
                                 <label>Item 4 Name </label>
-                                <input type="text" class="form-control" name="item_4" placeholder="Enter Department">
+                                <input type="text" class="form-control" name="item_4" placeholder="Enter ">
                             </div>
                             <div class="form-group">
                                 <label>Item 4 Price </label>
-                                <input type="text" class="form-control" name="i_price_4" placeholder="Enter Department">
+                                <input type="text" class="form-control" name="i_price_4" placeholder="Enter ">
                             </div>
                             <div class="form-group">
                                 <label>Item 5 Name </label>
-                                <input type="text" class="form-control" name="item_5" placeholder="Enter Department">
+                                <input type="text" class="form-control" name="item_5" placeholder="Enter ">
                             </div>
                             <div class="form-group">
                                 <label>Item 5 Price </label>
-                                <input type="text" class="form-control" name="i_price_5" placeholder="Enter Department">
+                                <input type="text" class="form-control" name="i_price_5" placeholder="Enter ">
+                            </div>
+                            <div class="form-group">
+                                <label>Email </label>
+                                <input type="text" class="form-control" name="email_staff" placeholder="Enter Email" value={{ user.email }}>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Name </label>
+                                <input type="text" class="form-control" name="staff" placeholder="Enter " value={{ user.first_name }} {{ user.last_name }}>
                             </div>
                             <div class="form-group">
                                 <label>Description / Comment </label>

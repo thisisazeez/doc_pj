@@ -130,5 +130,15 @@ AUTH_USER_MODEL = "app.CustomUser"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = 'abdoulazeezx@gmail.com'
+EMAIL_HOST_PASSWORD = '08143645836'
+EMAIL_USE_TLS = True 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
 # Registering Custom Backend "EmailBackEnd"
 AUTHENTICATION_BACKENDS = ['app.EmailBackEnd.EmailBackEnd']

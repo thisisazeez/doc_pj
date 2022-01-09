@@ -5,6 +5,7 @@ from django.core.files.storage import FileSystemStorage #To upload Profile Pictu
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
+from django.core.mail import send_mail
 import json
 from .forms import *
 from app.models import CustomUser, Sop,  Staffs, Departments, Intakes, Finance, Product
@@ -34,16 +35,25 @@ def add_sop_save(request):
         item_5 = request.POST.get('item_5')
         i_price_5 = request.POST.get('i_price_5')
         comment = request.POST.get('comment')
+        staff = request.POST.get('staff')
+        email_staff = request.POST.get('email_staff')
 
-        try:
-            sop_model = Cons(one=item_1, amountOne=i_price_1, two=item_2, amountTwo=i_price_2,
-            three=item_3, comment=comment,amountThree=i_price_3, four=item_4, amountFour=i_price_4, five=item_5, amountFive=i_price_5)
-            sop_model.save()
-            messages.success(request, "SOP Added Successfully!")
-            return redirect('add_sop')
-        except:
-            messages.error(request, "Failed to Add SOP!")
-            return redirect('add_sop')
+
+        # try:
+        sop_model = Cons(one=item_1, amountOne=i_price_1, two=item_2, amountTwo=i_price_2,
+        three=item_3, comment=comment,amountThree=i_price_3, four=item_4, amountFour=i_price_4, five=item_5, amountFive=i_price_5)
+        sop_model.save()
+        appointment = "Name: " + staff + " Email: " + email_staff + " Comment: "+ comment + " Item 1: " + item_1 + " Item 1 Price: " + i_price_1 + " Login to see more... at URL"
+        messages.success(request, "SOP Added Successfully!")
+        send_mail(
+            'SOP Request',
+            appointment,
+            email_staff,
+            ['abdoulazeezx@gmail.com'])
+        return redirect('add_sop')
+        # except:
+        #     messages.error(request, "Failed to Add SOP!")
+        #     return redirect('add_sop')
 
 def manage_sop(request):
     sops = Cons.objects.all()

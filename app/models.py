@@ -22,16 +22,26 @@ class AdminManagement(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     objects = models.Manager()
 
+class staffDepartments(models.Model):
+    id = models.AutoField(primary_key=True)
+    department_name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = models.Manager()
+
+
 class Staffs(models.Model):
     id = models.AutoField(primary_key=True)
     admin = models.OneToOneField(CustomUser, on_delete = models.CASCADE, blank=True, null=True)
     address = models.TextField()
     nin = models.CharField(max_length=255)
     phone_num = models.CharField(max_length=255)
-    customer_points = models.IntegerField(default=0)
+    ip_id_staff = models.CharField(max_length=255, blank=True, null=True)
+    sf_department = models.ForeignKey(staffDepartments, on_delete=models.CASCADE,blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = models.Manager()
+
 
 
 class Finance(models.Model):

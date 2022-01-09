@@ -56,6 +56,13 @@ urlpatterns = [
     path('edit_department_save/', HodViews.edit_department_save, name="edit_department_save"),
     path('delete_department/<department_id>/', HodViews.delete_department, name="delete_department"),
 
+    path('add_department_st/', HodViews.add_department_st, name="add_department_st"),
+    path('add_department_st_save/', HodViews.add_department_st_save, name="add_department_st_save"),
+    path('manage_department_st/', HodViews.manage_department_st, name="manage_department_st"),
+    path('edit_department_st/<department_id>/', HodViews.edit_department_st, name="edit_department_st"),
+    path('edit_department_st_save/', HodViews.edit_department_save, name="edit_department_st_save"),
+    path('delete_department_st/<department_id>/', HodViews.delete_department, name="delete_department_st"),
+
 
     path('add_fee_type/', HodViews.add_fee_type, name="add_fee_type"),
     path('add_fee_type_save/', HodViews.add_fee_type_save, name="add_fee_type_save"),

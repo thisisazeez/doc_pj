@@ -9,7 +9,7 @@ import json
 # from reportengine import ModelReport
 from slick_reporting.views import SlickReportView
 from slick_reporting.fields import SlickReportField
-from app.models import CustomUser, Paymenttype, Programme,  Staffs, Departments, Intakes, Cons,Finance, Students, feeType, student_status, Reciept
+from app.models import CustomUser, Paymenttype, Programme, staffDepartments, Staffs, Departments, Intakes, Cons,Finance, Students, feeType, student_status, Reciept
 
 
 def admin_home(request):
@@ -53,7 +53,11 @@ def finance_profile(requtest):
 
 #staff
 def add_staff(request):
-    return render(request, "hod_template/add_staff_template.html")
+    departments = staffDepartments.objects.all()
+    context = {
+        'departments':departments,
+    }
+    return render(request, "hod_template/add_staff_template.html", context)
 
 def add_staff_save(request):
     if request.method != "POST":
@@ -66,10 +70,17 @@ def add_staff_save(request):
         email = request.POST.get('email')
         password = "lincolnstaff12345"
         address = request.POST.get('address')
+        nin_id = request.POST.get('nin_id')
+        ip_id = request.POST.get('ip_id')
+        department = request.POST.get('department')
 
         try:
-            user = CustomUser.objects.create_user(username=username, password=password, email=email, first_name=first_name, last_name=last_name, user_type=2)
+            user = CustomUser.objects.create_user(username=username, password=password, 
+            email=email, first_name=first_name, 
+            last_name=last_name,
+            nin=nin_id, ip_id_staff=ip_id, user_type=2)
             user.staffs.address = address
+            user.department=staffDepartments.objects.get(id=department) 
             user.save()
             messages.success(request, "Staff Added Successfully!")
             return redirect('add_staff')
@@ -432,6 +443,71 @@ def delete_department(request, department_id):
     except:
         messages.error(request, "Failed to Delete department.")
         return redirect('manage_department')
+
+
+# st. Dept
+
+def add_department_st(request):
+    return render(request, "hod_template/add_department_st_template.html")
+
+def add_department_st_save(request):
+    if request.method != "POST":
+        messages.error(request, "Invalid Method!")
+        return redirect('add_department_st')
+    else:
+        department = request.POST.get('department')
+        try:
+            department_model = staffDepartments(department_name=department)
+            department_model.save()
+            messages.success(request, "Department Added Successfully!")
+            return redirect('add_department_st')
+        except:
+            messages.error(request, "Failed to Add Department!")
+            return redirect('add_department_st')
+
+def manage_department_st(request):
+    departments = staffDepartments.objects.all()
+    context = {
+        "departments": departments
+    }
+    return render(request, 'hod_template/manage_department_st_template.html', context)
+
+def edit_department_st(request, department_id):
+    department = staffDepartments.objects.get(id=department_id)
+    context = {
+        "department": department,
+        "id": department_id
+    }
+    return render(request, 'hod_template/edit_department_st_template.html', context)
+
+def edit_department_st_save(request):
+    if request.method != "POST":
+        HttpResponse("Invalid Method")
+    else:
+        department_id = request.POST.get('department_id')
+        department_name = request.POST.get('department')
+
+        try:
+            department = staffDepartments.objects.get(id=department_id)
+            department.department_name = department_name
+            department.save()
+
+            messages.success(request, "department Updated Successfully.")
+            return redirect('/edit_department_st/'+department_id)
+
+        except:
+            messages.error(request, "Failed to Update department.")
+            return redirect('/edit_department_st/'+department_id)
+
+def delete_department_st(request, department_id):
+    department = staffDepartments.objects.get(id=department_id)
+    try:
+        department.delete()
+        messages.success(request, "department Deleted Successfully.")
+        return redirect('manage_department_st')
+    except:
+        messages.error(request, "Failed to Delete department.")
+        return redirect('manage_department_st')
 
 
 #feetype

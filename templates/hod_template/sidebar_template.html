@@ -158,6 +158,17 @@
             </li> 
 
             <li class="nav-item">
+              {% url 'manage_department_st' as manage_department_st %}
+              {% url 'edit_department_st' department_id=id as edit_department_st %}
+              <a href="{{ manage_department }}" class="nav-link {% if request.path == manage_department_st %} active {% endif %} {% if request.path == edit_department_st %} active {% endif %}">
+                <i class="nav-icon fas fa-chalkboard"></i>
+                <p>
+                  Manage Staff Department
+                </p>
+              </a>
+            </li> 
+
+            <li class="nav-item">
               {% url 'manage_fee_type' as manage_fee_type %}
               {% url 'edit_fee_type' fee_id=id as edit_fee_type %}
               <a href="{{ manage_fee_type }}" class="nav-link {% if request.path == manage_fee_type %} active {% endif %} {% if request.path == edit_fee_type %} active {% endif %}">
