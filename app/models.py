@@ -333,7 +333,9 @@ class Sop(models.Model):
         return str(self.id)
 
 
-
+class Recieptreport(models.Model):
+    Receipt = models.ForeignKey(Reciept, on_delete=models.CASCADE, blank=True, null=True)
+    models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
 
 class Cons(models.Model):
@@ -351,6 +353,7 @@ class Cons(models.Model):
     five = models.CharField(max_length=255, blank=True, null=True)
     amountFive = models.CharField(max_length=255, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
+    is_not_approved = models.BooleanField(default=False)
 
 
 class SopDetail(models.Model):

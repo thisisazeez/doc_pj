@@ -9,8 +9,86 @@ import json
 # from reportengine import ModelReport
 from slick_reporting.views import SlickReportView
 from slick_reporting.fields import SlickReportField
-from app.models import CustomUser, Paymenttype, Programme, staffDepartments, Staffs, Departments, Intakes, Cons,Finance, Students, feeType, student_status, Reciept
+from app.models import CustomUser, Paymenttype, Programme, Recieptreport, staffDepartments, Staffs, Departments, Intakes, Cons,Finance, Students, feeType, student_status, Reciept
+from excel_response import ExcelResponse
+from django.db.models import Q, Count
 
+def is_valid_queryparam(param):
+    return param != '' and param is not None
+
+
+def filter(request):
+    qs = Reciept.objects.all()
+    title_contains_query = request.GET.get('title_contains')
+    id_exact_query = request.GET.get('id_exact')
+    title_or_author_query = request.GET.get('title_or_author')
+    view_count_min = request.GET.get('view_count_min')
+    view_count_max = request.GET.get('view_count_max')
+    date_min = request.GET.get('date_min')
+    date_max = request.GET.get('date_max')
+    category = request.GET.get('category')
+    reviewed = request.GET.get('reviewed')
+    not_reviewed = request.GET.get('notReviewed')
+
+    if is_valid_queryparam(title_contains_query):
+        qs = qs.filter(title__icontains=title_contains_query)
+
+    elif is_valid_queryparam(id_exact_query):
+        qs = qs.filter(id=id_exact_query)
+
+    elif is_valid_queryparam(title_or_author_query):
+        qs = qs.filter(Q(title__icontains=title_or_author_query)
+                       | Q(author__name__icontains=title_or_author_query)
+                       ).distinct()
+
+    if is_valid_queryparam(view_count_min):
+        qs = qs.filter(views__gte=view_count_min)
+
+    if is_valid_queryparam(view_count_max):
+        qs = qs.filter(views__lt=view_count_max)
+
+    if is_valid_queryparam(date_min):
+        qs = qs.filter(publish_date__gte=date_min)
+
+    if is_valid_queryparam(date_max):
+        qs = qs.filter(publish_date__lt=date_max)
+
+    if is_valid_queryparam(category) and category != 'Choose...':
+        qs = qs.filter(categories__name=category)
+
+    if reviewed == 'on':
+        qs = qs.filter(reviewed=True)
+
+    elif not_reviewed == 'on':
+        qs = qs.filter(reviewed=False)
+
+    return qs
+
+
+def infinite_filter(request):
+    limit = request.GET.get('limit')
+    offset = request.GET.get('offset')
+    return Reciept.objects.all()[int(offset): int(offset) + int(limit)]
+
+
+def is_there_more_data(request):
+    offset = request.GET.get('offset')
+    if int(offset) > Reciept.objects.all().count():
+        return False
+    return True
+
+
+def BootstrapFilterView(request):
+    qs = filter(request)
+    context = {
+        'queryset': qs,
+    }
+    return render(request, "bootstrap_form.html", context)
+
+
+def excelview(request):
+    objs = Reciept.objects.all()
+    return ExcelResponse(objs)
 
 def admin_home(request):
    return render(request, "hod_template/home_content.html")#,context
@@ -756,6 +834,11 @@ def edit_sop_admin_save(request):
         item_5 = request.POST.get('item_5')
         comment = request.POST.get('comment')
         i_price_5 = request.POST.get('i_price_5')
+        is_not_approved= request.POST.get('is_approved')
+        if is_not_approved == 'on':
+            is_not_approved = True
+        else:
+            is_not_approved =False 
         is_approved= request.POST.get('is_approved')
         if is_approved == 'on':
             is_approved = True
@@ -775,6 +858,7 @@ def edit_sop_admin_save(request):
         sop.amountFive = i_price_5
         sop.comment = comment
         sop.is_approved = is_approved
+        sop.is_not_approved = is_not_approved
         sop.save()
 
         messages.success(request, "SOP Updated Successfully.")

@@ -41,6 +41,8 @@ urlpatterns = [
     path('edit_student_save/', HodViews.edit_student_save, name="edit_student_save"),
     path('delete_student/<stu_id>/', HodViews.delete_student, name="delete_student"),
 
+
+    path('response/', HodViews.excelview, name="response_excel"),
     path('add_ptype/', HodViews.add_ptype, name="add_ptype"),
     path('add_ptype_save/', HodViews.add_ptype_save, name="add_ptype_save"),
     path('manage_ptype/', HodViews.manage_ptype, name="manage_ptype"),
