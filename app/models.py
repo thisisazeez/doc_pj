@@ -11,16 +11,22 @@ from django.utils import timezone
 from uuid import uuid4
 from django.urls import reverse
 
-class CustomUser(AbstractUser):
-    user_type_data = ((1, "management"), (2, "staff"), (3, "finance"))
-    user_type = models.CharField(default=1, choices=user_type_data, max_length=10)
+class User(AbstractUser):
+    is_admin= models.BooleanField('Is admin', default=False)
+    is_registrar1 = models.BooleanField('Is student registrar', default=False)
+    is_registrar2 = models.BooleanField('Is staff registrar', default=False)
+    is_cashier = models.BooleanField('Is cashier', default=False)
+    is_expenses = models.BooleanField('Is expenses', default=False)
+    is_expenses_admin = models.BooleanField('Is expenses admin', default=False)
+    is_daily_report = models.BooleanField('Is Daily report', default=False)
+    is_weekly_report = models.BooleanField('Is Weekly report', default=False)
+    is_monthly_report = models.BooleanField('Is Monthly report', default=False)
+    is_expenses_report = models.BooleanField('Is Expenses report', default=False)
+    is_add = models.BooleanField('Is Add', default=False)
+    is_issue = models.BooleanField('Is Issue Receipt', default=False)
+    nin = models.CharField(max_length=255, blank=True)
+    phone_num = models.CharField(max_length=255, blank=True)
 
-class AdminManagement(models.Model):
-    id = models.AutoField(primary_key=True)
-    admin = models.OneToOneField(CustomUser, on_delete = models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    objects = models.Manager()
 
 class staffDepartments(models.Model):
     id = models.AutoField(primary_key=True)
@@ -28,33 +34,6 @@ class staffDepartments(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = models.Manager()
-
-
-class Staffs(models.Model):
-    id = models.AutoField(primary_key=True)
-    admin = models.OneToOneField(CustomUser, on_delete = models.CASCADE, blank=True, null=True)
-    address = models.TextField()
-    nin = models.CharField(max_length=255)
-    phone_num = models.CharField(max_length=255)
-    ip_id_staff = models.CharField(max_length=255, blank=True, null=True)
-    sf_department = models.ForeignKey(staffDepartments, on_delete=models.CASCADE,blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    objects = models.Manager()
-
-
-
-class Finance(models.Model):
-    id = models.AutoField(primary_key=True)
-    admin = models.OneToOneField(CustomUser, on_delete = models.CASCADE, blank=True, null=True)
-    address = models.TextField()
-    nin = models.CharField(max_length=255)
-    phone_num = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    objects = models.Manager()
-
-
 class Intakes(models.Model):
     id = models.AutoField(primary_key=True)
     intake_name = models.CharField(max_length=255)
@@ -108,7 +87,6 @@ class student_status(models.Model):
 
 class Students(models.Model):
     id = models.AutoField(primary_key=True)
-    admin = models.OneToOneField(CustomUser, on_delete = models.CASCADE, blank=True, null=True)
     gender = models.CharField(max_length=50)
     programme = models.ForeignKey(Programme, on_delete=models.CASCADE, blank=True, null=True)
     intake = models.ForeignKey(Intakes, on_delete=models.CASCADE,blank=True, null=True)
@@ -326,7 +304,7 @@ class Product(models.Model):
 
 class Sop(models.Model):
     date = models.DateField()
-    customer = models.ForeignKey(Staffs, on_delete=models.SET_NULL, blank=True, null=True)
+    customer = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
     total = models.FloatField(default=0)
 
     def __str__(self):
@@ -365,31 +343,3 @@ class SopDetail(models.Model):
     def get_total_bill(self):
         total = float(self.product.product_price) * float(self.amount)
         return total
-
-@receiver(post_save, sender=CustomUser)
-# Now Creating a Function which will automatically insert data in HOD, Staff or Finance
-def create_user_profile(sender, instance, created, **kwargs):
-    # if Created is true (Means Data Inserted)
-    if created:
-        # Check the user_type and insert the data in respective tables
-        if instance.user_type == 1:
-            AdminManagement.objects.create(admin=instance)
-        if instance.user_type == 2:
-            Staffs.objects.create(admin=instance)
-        if instance.user_type == 3:
-            Finance.objects.create(admin=instance) 
-
-
-
-
-@receiver(post_save, sender=CustomUser)
-def save_user_profile(sender, instance, **kwargs):
-    if instance.user_type == 1:
-        instance.adminmanagement.save()
-    if instance.user_type == 2:
-        instance.staffs.save()
-    if instance.user_type == 3:
-        instance.finance.save()
-
-
-

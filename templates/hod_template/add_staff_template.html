@@ -1,118 +1,134 @@
 {% extends 'hod_template/base_template.html' %}
 
-{% block page_title %}
-    Add Staff
-{% endblock page_title %}
 
 {% block main_content %}
 
 {% load static %}
-
 <section class="content">
         <div class="container-fluid">
 
             <div class="row">
                 <div class="col-md-12">
                     <!-- general form elements -->
-                    <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">Add Staff</h3>
-                    </div>
-                    <!-- /.card-header -->
+                        <h3>Add User</h3>
+                        <hr>
+                        <!-- /.card-header -->
                     <!-- form start -->
-                    <form role="form" method="POST" action="{% url 'add_staff_save' %}">
+                    <form role="form" method="POST" >
                         {% csrf_token %}
 
                         
                                 {% comment %} Display Messages {% endcomment %}
-                                {% if messages %}
+                                {% if msg %}
                                 <div class="form-group">
                                 <div class="col-12">
-                                    {% for message in messages %}
-                                    {% if message.tags == "error" %}
                                         <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
-                                        {{ message }}
+                                        {{ msg }}
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                         </div>
-                                    {% elif message.tags == "success" %}
-                                        <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 10px;">
-                                        {{ message }}
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        </div>
-                                    {% endif %}
-                                    {% endfor %}
                                 </div>
                                 </div>
                                 {% endif %}
                             
 
-                        <div class="card-body">
-                            <div class="form-group">
-                                <div class="form-group">
-                                    <label>First Name</label>
-                                    <input type="text" class="form-control" name="first_name" placeholder="First Name">
-                                </div>
-    
-                                <div class="form-group">
-                                    <label>Last Name</label>
-                                    <input type="text" class="form-control" name="last_name" placeholder="Last Name">
-                                </div>
-                                <div class="form-group">
-                                    <label>NIN</label>
-                                    <input type="id" class="form-control" name="nin_id" placeholder="45678956789056784567456">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Int'l Passport ID</label>
-                                    <input type="id" class="form-control" name="ip_id" placeholder="45678956789056784567456">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Department:</label>
-                                    <select class="form-control" name="department">
-                                        {% for department in departments %}
-                                            <option value="{{department.id}}">{{ department.department_name }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-
-                                <label>Email address</label>
-                                <input type="email" class="form-control" name="email" placeholder="Enter email" id="id_email">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Phone Number</label>
-                                <input type="text" class="form-control" name="phone_num" placeholder="Phone Number">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Username</label>
-                                <input type="text" class="form-control" name="username" placeholder="Username" id="id_username">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Password</label>
-                                <input type="text" class="form-control" name="password" value="lincoln12345" disabled>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Address</label>
-                                <textarea class="form-control" name="address" placeholder="Address"></textarea>
-                            </div>
-
-                            
-
-
+                                <form  method="post">
+                                    {% csrf_token %}
+                                  <div class="form-group first">
+                                    <label for="username">Username</label>
+                                      {{ form.username }}
+                                  </div>
+                                  <div class="form-group first">
+                                    <label for="email">Email</label>
+                                      {{ form.email}}
+                                  </div>
+                                  <div class="form-group last mb-4">
+                                    <label for="password">Password</label>
+                                      {{ form.password1 }}
+                                  </div>
+                                  <div class="form-group last mb-4">
+                                    <label for="password">confirm Password</label>
+                                      {{ form.password2 }}
+                                  </div>
+                                  <div class="form-group last mb-4">
+                                    <label for="password">Nin</label>
+                                      {{ form.nin }}
+                                  </div>
+                                  <div class="form-group last mb-4">
+                                    <label for="password">Phone Number </label>
+                                      {{ form.phone_num }}
+                                  </div>
+                                  <div class="d-flex mb-5 align-items-center">
+                                    <label class="control control--checkbox mb-0"><span class="caption">Admin</span>
+                                        {{ form.is_admin }}
+                                      <div class="control__indicator"></div>
+                                    </label>
+                                  </div>
+                                  <div class="d-flex mb-5 align-items-center">
+                                    <label class="control control--checkbox mb-0"><span class="caption">Student Registrar</span>
+                                        {{ form.is_registrar1 }}
+                                      <div class="control__indicator"></div>
+                                    </label>
+                                  </div>
+                                  <div class="d-flex mb-5 align-items-center">
+                                    <label class="control control--checkbox mb-0"><span class="caption">Staff Registrar</span>
+                                        {{ form.is_registrar2 }}
+                                      <div class="control__indicator"></div>
+                                    </label>
+                                  </div>
+                                  <div class="d-flex mb-5 align-items-center">
+                                    <label class="control control--checkbox mb-0"><span class="caption">Cashier</span>
+                                        {{ form.is_cashier }}
+                                      <div class="control__indicator"></div>
+                                    </label>
+                                  </div>
+                                  <div class="d-flex mb-5 align-items-center">
+                                    <label class="control control--checkbox mb-0"><span class="caption">Expenses</span>
+                                        {{ form.is_expenses }}
+                                      <div class="control__indicator"></div>
+                                    </label>
+                                  </div>
+                                  <div class="d-flex mb-5 align-items-center">
+                                    <label class="control control--checkbox mb-0"><span class="caption">Expenses Admin</span>
+                                        {{ form.is_expenses_admin }}
+                                      <div class="control__indicator"></div>
+                                    </label>
+                                  </div>
+                                  <div class="d-flex mb-5 align-items-center">
+                                    <label class="control control--checkbox mb-0"><span class="caption">Daily Report</span>
+                                        {{ form.is_daily_report }}
+                                      <div class="control__indicator"></div>
+                                    </label>
+                                  </div>
+                                  <div class="d-flex mb-5 align-items-center">
+                                    <label class="control control--checkbox mb-0"><span class="caption">Weekly Report</span>
+                                        {{ form.is_weekly_report }}
+                                      <div class="control__indicator"></div>
+                                    </label>
+                                  </div>
+                                  <div class="d-flex mb-5 align-items-center">
+                                    <label class="control control--checkbox mb-0"><span class="caption">Monthly Report</span>
+                                        {{ form.is_monthly_report }}
+                                      <div class="control__indicator"></div>
+                                    </label>
+                                  </div>
+                                  <div class="d-flex mb-5 align-items-center">
+                                    <label class="control control--checkbox mb-0"><span class="caption">Expenses Report</span>
+                                        {{ form.is_expenses_report }}
+                                      <div class="control__indicator"></div>
+                                    </label>
+                                  </div>
+                                  <div class="d-flex mb-5 align-items-center">
+                                    <label class="control control--checkbox mb-0"><span class="caption">Adder</span>
+                                        {{ form.is_add }}
+                                      <div class="control__indicator"></div>
+                                    </label>
+                                  </div>
                         </div>
                         <!-- /.card-body -->
-
-                        <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Add Staff</button>
-                        </div>
+                        <button type="submit" class="btn btn-primary">Add User</button>
+                        <br>
                     </form>
                     </div>
                     <!-- /.card -->
@@ -124,77 +140,3 @@
       </section>
 
   {% endblock main_content %}
-
-    {% block custom_js %}
-    {% comment %} Checking if email and username already exists or not usin Ajax {% endcomment %}
-
-    <script>
-        $(document).ready(function(){
-            // keyup event will be triggered when user leaves keyboard
-            $("#id_email").keyup(function(){
-                var email = $(this).val();
-
-                if(email!=""){
-                    $.ajax({
-                        url : '{% url 'check_email_exist' %}',
-                        type : 'POST',
-                        data : {email:email}
-                    })
-                    .done(function(response){
-                        //console.log(response);
-
-                        if(response == "True"){
-                            $(".email_error").remove();
-                            $("<span class='email_error' style='color: red; padding: 5px; font-weight: bold;'> Email Not Available. </span>").insertAfter("#id_email")
-                        }
-                        else{
-                            $(".email_error").remove();
-                            $("<span class='email_error' style='color: green; padding: 5px; font-weight: bold;'> Email Available. </span>").insertAfter("#id_email")
-                        }
-                    })
-
-                    .fail(function(){
-                        console.log("Failed");
-                    })
-                }
-                else{
-                    $(".email_error").remove();
-                }
-                
-            })
-
-            $("#id_username").keyup(function(){
-                var username = $(this).val();
-                
-                if(username!=""){
-                    $.ajax({
-                        url : '{% url 'check_username_exist' %}',
-                        type : 'POST',
-                        data : {username:username}
-                    })
-                    .done(function(response){
-                        //console.log(response);
-
-                        if(response == "True"){
-                            $(".username_error").remove();
-                            $("<span class='username_error' style='color: red; padding: 5px; font-weight: bold;'> Username Not Available. </span>").insertAfter("#id_username")
-                        }
-                        else{
-                            $(".username_error").remove();
-                            $("<span class='username_error' style='color: green; padding: 5px; font-weight: bold;'> Username Available. </span>").insertAfter("#id_username")
-                        }
-                    })
-
-                    .fail(function(){
-                        console.log("Failed");
-                    })
-                }
-                else{
-                    $(".username_error").remove();
-                }
-                
-            })
-        })
-    </script>
-
-  {% endblock custom_js %}

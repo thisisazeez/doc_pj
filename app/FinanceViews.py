@@ -9,7 +9,7 @@ from django.core import serializers
 from django.db.models import Q
 from django.views.generic import ListView
 import json
-from .models import CustomUser, Paymenttype, Reciept,  Staffs, Departments, Intakes, Finance, Students, Invoice, InvoiceDetail, feeType
+from .models import Paymenttype, Reciept, Departments, Intakes, Students, Invoice, InvoiceDetail, feeType
 from .forms import  InvoiceForm
 import os
 from uuid import uuid4

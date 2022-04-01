@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -104,6 +105,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+AUTH_USER_MODEL = "app.User"
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -126,19 +129,15 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-AUTH_USER_MODEL = "app.CustomUser"
+AUTH_USER_MODEL = "app.User"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = '587'
+EMAIL_PORT = 587
 EMAIL_HOST_USER = 'abdoulazeezx@gmail.com'
 EMAIL_HOST_PASSWORD = '08143645836'
-EMAIL_USE_TLS = True 
+EMAIL_USE_TLS = True
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-
-# Registering Custom Backend "EmailBackEnd"
-AUTHENTICATION_BACKENDS = ['app.EmailBackEnd.EmailBackEnd']
+# EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
