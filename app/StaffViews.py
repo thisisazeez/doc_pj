@@ -8,6 +8,7 @@ from django.core import serializers
 from django.core.mail import send_mail
 import json
 from .forms import *
+from django.conf import settings
 from app.models import Sop, Departments, Intakes, Product, User
 
 
@@ -43,19 +44,19 @@ def add_sop_save(request):
         sop_model = Cons(one=item_1, amountOne=i_price_1, two=item_2, amountTwo=i_price_2,
         three=item_3, comment=comment,amountThree=i_price_3, four=item_4, amountFour=i_price_4, five=item_5, amountFive=i_price_5)
         sop_model.save()
-        appointment = "Name: " + staff + " Email: " + email_staff + " Comment: "+ comment + " Item 1: " + item_1 + " Item 1 Price: " + i_price_1 + " Login to see more... at URL"
-        user_set = User.objects.all()
+        # appointment = "Name: " + staff + " Email: " + email_staff + " Comment: "+ comment + " Item 1: " + item_1 + " Item 1 Price: " + i_price_1 + " Login to see more... at URL"
+        # user_set = User.objects.all()
         # The `iterator()` method ensures only a few rows are fetched from
         # the database at a time, saving memory.
-        for user in user_set.iterator():
-            print(user.email)
-        print("random")
+        # for user in user_set.iterator():
+        #     send_mail(
+        #         'SOP Request',
+        #         appointment,
+        #         settings.EMAIL_HOST_USER,
+        #         ['thisisazeez0@gmail.com'])
+        #     print(user.email)
+        # print("random")
         messages.success(request, "SOP Added Successfully!")
-        # send_mail(
-        #     'SOP Request',
-        #     appointment,
-        #     email_staff,
-        #     ['abdoulazeezx@gmail.com'])
         return redirect('add_sop')
         # except:
         #     messages.error(request, "Failed to Add SOP!")

@@ -133,11 +133,18 @@ AUTH_USER_MODEL = "app.User"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'abdoulazeezx@gmail.com'
-EMAIL_HOST_PASSWORD = '08143645836'
-EMAIL_USE_TLS = True
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'replymeback2@gmail.com'
+# EMAIL_HOST_PASSWORD = '08143645836'
+# EMAIL_USE_TLS = True
 
-# EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+# EMAIL_HOST = 'smtp.office365.com'
+# EMAIL_PORT = 587 
+# EMAIL_USE_TLS = True 
+# EMAIL_HOST_USER = 'Auto@lincoln.edu.ng' 
+# EMAIL_HOST_PASSWORD = 'mina@123.090'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' 
+
