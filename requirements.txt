@@ -42,3 +42,4 @@ webencodings==0.5.1
 wrapt==1.13.3
 xhtml2pdf==0.2.5
 XlsxWriter==3.0.2
+setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
