@@ -51,7 +51,7 @@
         {% endif %}
 
 
-        {% if user.is_admin or user.is_daily_report %}
+        {% comment %} {% if user.is_admin or user.is_daily_report %}
         <li class="nav-item">
           {% url 'report_gen' as report_gen %}
           {% url 'edit_finance' finance_id=id as edit_finance %}
@@ -62,7 +62,7 @@
             </p>
           </a>
         </li>
-        {% endif %}
+        {% endif %} {% endcomment %}
 
 
         {% if user.is_admin or user.is_expenses_admin or user.is_expenses_report or user.is_superuser%}
@@ -77,7 +77,7 @@
           </a>
         </li>
         {% endif %}{% if user.is_admin or user.is_add or user.is_superuser%}
-        <li class="nav-item">
+        {% comment %} <li class="nav-item">
           {% url 'manage_intake' as manage_intake %}
           {% url 'edit_intake' intake_id=id as edit_intake %}
           <a href="{{ manage_intake }}" class="nav-link {% if request.path == manage_intake %} active {% endif %} {% if request.path == edit_intake %} active {% endif %}">
@@ -86,7 +86,7 @@
               Manage Intake
             </p>
           </a>
-        </li> 
+        </li>  {% endcomment %}
 
 
         <li class="nav-item">
@@ -100,7 +100,7 @@
           </a>
         </li> 
 
-        <li class="nav-item">
+        {% comment %} <li class="nav-item">
           {% url 'manage_department' as manage_department %}
           {% url 'edit_department' department_id=id as edit_department %}
           <a href="{{ manage_department }}" class="nav-link {% if request.path == manage_department %} active {% endif %} {% if request.path == edit_department %} active {% endif %}">
@@ -133,9 +133,9 @@
               Manage Payment Type
             </p>
           </a>
-        </li> 
+        </li>  {% endcomment %}
 
-        <li class="nav-item">
+        {% comment %} <li class="nav-item">
           {% url 'manage_status' as manage_status %}
           {% url 'edit_status' status_id=id as edit_status %}
           <a href="{{ manage_status }}" class="nav-link {% if request.path == manage_status %} active {% endif %} {% if request.path == edit_status %} active {% endif %}">
@@ -168,7 +168,7 @@
             </p>
           </a>
         </li>
-        {% endif %}
+        {% endif %} {% endcomment %}
 
 
     </nav>
