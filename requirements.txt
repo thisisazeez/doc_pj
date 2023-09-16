@@ -33,7 +33,7 @@ regex==2021.8.28
 reportlab==3.6.5
 simplejson==3.17.6
 six==1.16.0
-sqlparse==0.4.2
+sqlparse==0.4.4
 toml==0.10.2
 tomli==1.2.1
 typed-ast==1.5.1
